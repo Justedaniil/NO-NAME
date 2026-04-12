@@ -185,30 +185,7 @@ footer{
 </section>
 
 <!-- PRODUITS -->
-<section id="shop" class="products">
-
-<div class="product">
-<img src="https://images.unsplash.com/photo-1498579809087-ef1e558fd1da">
-<h3>Rose Élégante</h3>
-<p class="price">24€</p>
-<button class="btn" onclick="add('Rose Élégante',24)">Ajouter</button>
-</div>
-
-<div class="product">
-<img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93">
-<h3>Violette Sucrée</h3>
-<p class="price">26€</p>
-<button class="btn" onclick="add('Violette Sucrée',26)">Ajouter</button>
-</div>
-
-<div class="product">
-<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
-<h3>Citron Floral</h3>
-<p class="price">25€</p>
-<button class="btn" onclick="add('Citron Floral',25)">Ajouter</button>
-</div>
-
-</section>
+<section class="products" id="shop"></section>
 
 <!-- CONCEPT -->
 <section id="about" style="padding:80px;text-align:center;">
@@ -226,9 +203,46 @@ Une expérience sensorielle rare, entre élégance et mystère.
 </footer>
 
 <script>
+// 🔥 PRODUITS (modifiable ici)
+const products = [
+    {name:"Rose", price:24, active:true},
+    {name:"Violette", price:26, active:true},
+    {name:"Capucine", price:25, active:true},
+    {name:"Bourrache", price:23, active:true},
+    {name:"Souci (Calendula)", price:22, active:true},
+    {name:"Lavande", price:27, active:true},
+    {name:"Pensée", price:24, active:true},
+    {name:"Fleur de courgette", price:28, active:true}
+];
+
+// 🛒 PANIER
 let cart=[];
 let total=0;
 
+// 📦 AFFICHAGE PRODUITS
+function renderProducts(){
+    const container = document.getElementById("shop");
+    container.innerHTML="";
+
+    products.forEach(p=>{
+        if(!p.active) return; // 🔥 désactivation
+
+        const div=document.createElement("div");
+        div.className="product";
+
+        div.innerHTML=`
+            <h3>${p.name}</h3>
+            <p class="price">${p.price}€</p>
+            <button onclick="add('${p.name}',${p.price})">Ajouter</button>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+renderProducts();
+
+// ➕ AJOUT PANIER
 function add(name,price){
     cart.push({name,price});
     total+=price;
@@ -242,16 +256,14 @@ function add(name,price){
     document.getElementById("total").innerText=total;
 }
 
+// 🛒 OUVRIR PANIER
 function toggleCart(){
     document.getElementById("cartBox").classList.toggle("active");
 }
 
-function scrollToShop(){
-    document.getElementById("shop").scrollIntoView({behavior:"smooth"});
-}
-
+// 💳 CHECKOUT
 function checkout(){
-    window.location.href="https://buy.stripe.com/test"; // 🔥 REMPLACE
+    window.location.href="https://buy.stripe.com/test"; // 👉 remplace
 }
 </script>
 
