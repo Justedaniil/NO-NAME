@@ -5,16 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NO NAME</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
 body{
-    margin:0;
     font-family:Inter;
-    background:#0d0d0d;
-    color:white;
+    background:#0A0A0A;
+    color:#F8F6F2;
 }
 
+/* HEADER */
 header{
     display:flex;
     justify-content:space-between;
@@ -23,13 +25,22 @@ header{
     width:100%;
     background:rgba(0,0,0,0.8);
     backdrop-filter:blur(10px);
+    z-index:100;
 }
 
 .logo{
-    font-family:"Playfair Display";
-    letter-spacing:6px;
+    font-family:'Playfair Display';
+    letter-spacing:8px;
 }
 
+nav a{
+    margin-left:20px;
+    text-decoration:none;
+    color:#F8F6F2;
+    font-size:14px;
+}
+
+/* HERO */
 .hero{
     height:100vh;
     display:flex;
@@ -40,27 +51,37 @@ header{
 }
 
 .hero h1{
+    font-family:'Playfair Display';
     font-size:60px;
-    letter-spacing:10px;
+    letter-spacing:12px;
 }
 
 .hero p{
-    max-width:500px;
+    max-width:400px;
     opacity:0.7;
+    margin-top:10px;
 }
 
 .btn{
     margin-top:20px;
     padding:12px 30px;
-    border:1px solid white;
+    border:1px solid #C6A96B;
+    color:#C6A96B;
     cursor:pointer;
+    transition:0.3s;
 }
 
+.btn:hover{
+    background:#C6A96B;
+    color:black;
+}
+
+/* PRODUITS */
 .products{
+    padding:100px 40px;
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:40px;
-    padding:80px;
 }
 
 .product{
@@ -68,6 +89,11 @@ header{
     padding:20px;
     border-radius:10px;
     text-align:center;
+    transition:0.3s;
+}
+
+.product:hover{
+    transform:translateY(-5px);
 }
 
 .product img{
@@ -75,11 +101,21 @@ header{
     border-radius:10px;
 }
 
+.product h3{
+    margin:15px 0;
+    font-family:'Playfair Display';
+}
+
+.price{
+    color:#C6A96B;
+}
+
+/* PANIER */
 .cart{
     position:fixed;
     right:20px;
     top:20px;
-    background:white;
+    background:#C6A96B;
     color:black;
     padding:10px 15px;
     border-radius:30px;
@@ -98,11 +134,22 @@ header{
     transition:0.3s;
 }
 
-.cart-box.active{ right:0; }
+.cart-box.active{right:0;}
 
+.cart-box h2{
+    margin-bottom:20px;
+}
+
+.cart-box ul{
+    list-style:none;
+    margin-bottom:20px;
+}
+
+/* FOOTER */
 footer{
     text-align:center;
-    padding:40px;
+    padding:50px;
+    font-size:14px;
     opacity:0.6;
 }
 </style>
@@ -110,53 +157,72 @@ footer{
 
 <body>
 
+<!-- PANIER -->
 <div class="cart" onclick="toggleCart()">🛒 <span id="count">0</span></div>
 
 <div class="cart-box" id="cartBox">
 <h2>Panier</h2>
 <ul id="items"></ul>
 <p>Total : <span id="total">0</span>€</p>
-<button onclick="checkout()">Payer</button>
+<button class="btn" onclick="checkout()">Payer</button>
 </div>
 
+<!-- HEADER -->
 <header>
 <div class="logo">NO NAME</div>
-<div>Apéritif floral</div>
+<nav>
+<a href="#">Accueil</a>
+<a href="#shop">Boutique</a>
+<a href="#about">Concept</a>
+</nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
 <h1>NO NAME</h1>
-<p>Des fleurs comestibles, élégantes et inattendues pour transformer vos apéritifs.</p>
+<p>Sans nom. Sans compromis. Une expérience florale inoubliable.</p>
 <div class="btn" onclick="scrollToShop()">Découvrir</div>
 </section>
 
-<section class="products" id="shop">
+<!-- PRODUITS -->
+<section id="shop" class="products">
 
 <div class="product">
 <img src="https://images.unsplash.com/photo-1498579809087-ef1e558fd1da">
 <h3>Rose Élégante</h3>
-<p>10€</p>
-<button onclick="add('Rose Élégante',10)">Ajouter</button>
+<p class="price">24€</p>
+<button class="btn" onclick="add('Rose Élégante',24)">Ajouter</button>
 </div>
 
 <div class="product">
 <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93">
 <h3>Violette Sucrée</h3>
-<p>12€</p>
-<button onclick="add('Violette Sucrée',12)">Ajouter</button>
+<p class="price">26€</p>
+<button class="btn" onclick="add('Violette Sucrée',26)">Ajouter</button>
 </div>
 
 <div class="product">
 <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
 <h3>Citron Floral</h3>
-<p>11€</p>
-<button onclick="add('Citron Floral',11)">Ajouter</button>
+<p class="price">25€</p>
+<button class="btn" onclick="add('Citron Floral',25)">Ajouter</button>
 </div>
 
 </section>
 
+<!-- CONCEPT -->
+<section id="about" style="padding:80px;text-align:center;">
+<h2 style="font-family:'Playfair Display';margin-bottom:20px;">Le concept</h2>
+<p style="max-width:500px;margin:auto;opacity:0.7;">
+Des fleurs comestibles conçues pour sublimer l’apéritif.  
+Une expérience sensorielle rare, entre élégance et mystère.
+</p>
+</section>
+
+<!-- FOOTER -->
 <footer>
 <p>Livraison 5-10 jours • Paiement sécurisé • Support 24/7</p>
+<p>© 2026 NO NAME</p>
 </footer>
 
 <script>
@@ -185,12 +251,9 @@ function scrollToShop(){
 }
 
 function checkout(){
-    window.location.href="https://buy.stripe.com/test"; // 🔥 remplace par ton lien Stripe
+    window.location.href="https://buy.stripe.com/test"; // 🔥 REMPLACE
 }
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
