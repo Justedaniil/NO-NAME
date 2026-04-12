@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NO NAME - Boutique</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: #faf8f6;
+}
+
+header {
+    text-align: center;
+    padding: 50px;
+    background: linear-gradient(135deg,#f3e7e9,#e3eeff);
+}
+
+header h1 {
+    letter-spacing: 8px;
+}
+
+nav {
+    background: white;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.cart {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: black;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.hero {
+    height: 60vh;
+    background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6') center/cover;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
+
+.section {
+    padding: 50px;
+    max-width: 1100px;
+    margin:auto;
+}
+
+.products {
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.product {
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product img {
+    width:100%;
+    border-radius:10px;
+}
+
+.btn {
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 20px;
+    border:1px solid black;
+    cursor:pointer;
+}
+
+.btn:hover {
+    background:black;
+    color:white;
+}
+
+/* PANIER */
+.cart-box {
+    position:fixed;
+    right:-400px;
+    top:0;
+    width:300px;
+    height:100%;
+    background:white;
+    box-shadow:-5px 0 20px rgba(0,0,0,0.2);
+    padding:20px;
+    transition:0.3s;
+}
+
+.cart-box.active {
+    right:0;
+}
+
+footer {
+    background:black;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="cart" onclick="toggleCart()">🛒 <span id="count">0</span></div>
+
+<div class="cart-box" id="cartBox">
+    <h2>Panier</h2>
+    <ul id="cartItems"></ul>
+    <p>Total : <span id="total">0</span>€</p>
+
+    <!-- BOUTON PAIEMENT -->
+    <button class="btn" onclick="checkout()">Payer</button>
+</div>
+
+<header>
+    <h1>NO NAME</h1>
+    <p>Fleurs comestibles haut de gamme</p>
+</header>
+
+<nav>
+    <a href="#">Accueil</a>
+    <a href="#shop">Boutique</a>
+    <a href="#legal">Infos</a>
+</nav>
+
+<section class="hero">
+    <h2>Un apéritif qui marque</h2>
+</section>
+
+<section id="shop" class="section">
+    <h2>Nos produits</h2>
+
+    <div class="products">
+
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1498579809087-ef1e558fd1da">
+            <h3>Rose élégante</h3>
+            <p>10€</p>
+            <button class="btn" onclick="addToCart('Rose élégante',10)">Ajouter</button>
+        </div>
+
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93">
+            <h3>Violette sucrée</h3>
+            <p>12€</p>
+            <button class="btn" onclick="addToCart('Violette sucrée',12)">Ajouter</button>
+        </div>
+
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
+            <h3>Citron floral</h3>
+            <p>11€</p>
+            <button class="btn" onclick="addToCart('Citron floral',11)">Ajouter</button>
+        </div>
+
+    </div>
+</section>
+
+<section id="legal" class="section">
+    <h2>Informations</h2>
+    <p>Livraison : 5-10 jours</p>
+    <p>Retour : 14 jours</p>
+    <p>Paiement sécurisé</p>
+</section>
+
+<footer>
+    <p>© 2026 NO NAME - Boutique officielle</p>
+</footer>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addToCart(name, price){
+    cart.push({name, price});
+    total += price;
+
+    document.getElementById("count").innerText = cart.length;
+
+    let li = document.createElement("li");
+    li.innerText = name + " - " + price + "€";
+    document.getElementById("cartItems").appendChild(li);
+
+    document.getElementById("total").innerText = total;
+}
+
+function toggleCart(){
+    document.getElementById("cartBox").classList.toggle("active");
+}
+
+function checkout(){
+    alert("👉 Connecte ici Stripe / Shopify / fournisseur !");
+}
+</script>
+
+</body>
+</html>
