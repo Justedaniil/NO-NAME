@@ -3,269 +3,1354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NO NAME</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-
+<meta name="description" content="Le Moulin de Moissac — Hôtel & Restaurant historique sur les rives du Tarn depuis 1474. Séminaires, Spa, Restaurant Le M.1474.">
+<title>Le Moulin de Moissac — Hôtel · Restaurant · Spa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+/* ══════════════════════════════════════
+   RESET & CUSTOM PROPERTIES
+══════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:       #B8965A;
+  --or-clair: #C9A96E;
+  --or-pale:  #E8D5B0;
+  --or-bg:    #F9F4EB;
+  --ivoire:   #FDFBF7;
+  --blanc:    #FFFFFF;
+  --gris-pale:#F5F3EE;
+  --gris:     #E3DED5;
+  --gris-mid: #AFA89A;
+  --gris-chd: #6B6358;
+  --brun-nuit:#1E1B16;
+  --noir:     #0F0E0C;
+  --serif:    'Cormorant Garamond', Georgia, serif;
+  --sans:     'Jost', system-ui, sans-serif;
+  --ease:     cubic-bezier(.22,1,.36,1);
+  --ease-in:  cubic-bezier(.55,0,1,.45);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--blanc);color:var(--brun-nuit);font-family:var(--sans);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
 
-body{
-    font-family:Inter;
-    background:#0A0A0A;
-    color:#F8F6F2;
+/* ══════════════════════════════════════
+   SKIP LINK
+══════════════════════════════════════ */
+.skip{position:absolute;top:-100%;left:1rem;z-index:9999;padding:.5rem 1.2rem;background:var(--or);color:var(--blanc);font-size:.75rem}
+.skip:focus{top:1rem}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:2rem 5rem;
+  transition:padding .5s var(--ease), background .5s var(--ease), box-shadow .5s var(--ease);
+}
+.nav.solid{
+  background:rgba(253,251,247,.97);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(184,150,90,.15);
+  padding:1rem 5rem;
+  box-shadow:0 2px 40px rgba(0,0,0,.04);
 }
 
-/* HEADER */
-header{
-    display:flex;
-    justify-content:space-between;
-    padding:20px 40px;
-    position:fixed;
-    width:100%;
-    background:rgba(0,0,0,0.8);
-    backdrop-filter:blur(10px);
-    z-index:100;
+/* Logo image */
+.nav-logo-img{
+  height:48px;width:auto;
+  filter:brightness(0) invert(1);
+  transition:filter .4s var(--ease);
+}
+.nav.solid .nav-logo-img{
+  filter:none;
+  height:42px;
 }
 
-.logo{
-    font-family:'Playfair Display';
-    letter-spacing:8px;
-}
+/* Fallback text brand */
+.brand-txt{display:flex;flex-direction:column;gap:.15rem}
+.brand-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:rgba(255,255,255,.92);letter-spacing:.06em;line-height:1;transition:color .4s}
+.brand-sub{font-size:.46rem;letter-spacing:.55em;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .4s}
+.nav.solid .brand-name{color:var(--brun-nuit)}
+.nav.solid .brand-sub{color:var(--gris-chd)}
 
-nav a{
-    margin-left:20px;
-    text-decoration:none;
-    color:#F8F6F2;
-    font-size:14px;
+.nav-center{display:flex;gap:2.8rem;list-style:none}
+.nav-center a{
+  font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.65);font-weight:400;
+  transition:color .25s;padding:.3rem 0;position:relative;
 }
+.nav-center a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:1px;background:var(--or);
+  transform:scaleX(0);transition:transform .35s var(--ease);
+}
+.nav-center a:hover::after,.nav-center a:focus-visible::after{transform:scaleX(1)}
+.nav-center a:hover{color:var(--or-clair)}
+.nav.solid .nav-center a{color:var(--gris-chd)}
+.nav.solid .nav-center a:hover{color:var(--or)}
 
-/* HERO */
+.btn-nav-reserver{
+  font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;
+  padding:.65rem 1.7rem;
+  border:1px solid rgba(255,255,255,.35);color:var(--blanc);
+  transition:all .3s var(--ease);
+}
+.btn-nav-reserver:hover{background:var(--or);border-color:var(--or);color:var(--noir);transform:translateY(-1px)}
+.nav.solid .btn-nav-reserver{border-color:var(--or);color:var(--or)}
+.nav.solid .btn-nav-reserver:hover{background:var(--or);color:var(--blanc)}
+
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem;background:none;border:none}
+.hamburger span{display:block;width:26px;height:1px;background:rgba(255,255,255,.75);transition:all .3s}
+.nav.solid .hamburger span{background:var(--brun-nuit)}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
 .hero{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+  position:relative;height:100svh;min-height:740px;overflow:hidden;
+  display:flex;align-items:center;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/moulin-de-moissac-min.jpg') center/cover no-repeat;
+  animation:hzoom 22s var(--ease) forwards;
+  will-change:transform;
+}
+@keyframes hzoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+.hero-voile{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(110deg, rgba(15,14,12,.72) 0%, rgba(15,14,12,.28) 55%, rgba(15,14,12,.08) 100%),
+    linear-gradient(to top, rgba(15,14,12,.9) 0%, rgba(15,14,12,.2) 45%, transparent 70%);
+}
+/* Grain texture overlay */
+.hero-grain{
+  position:absolute;inset:0;opacity:.035;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+.hero-content{
+  position:relative;width:100%;
+  padding:0 5rem;
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:6rem;
+}
+.hero-left{animation:fadeUp 1.2s .2s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* Logo in hero */
+.hero-logo{
+  display:block;
+  margin-bottom:2.5rem;
+}
+.hero-logo img{
+  height:72px;width:auto;
+  filter:brightness(0) invert(1) opacity(.9);
 }
 
-.hero h1{
-    font-family:'Playfair Display';
-    font-size:60px;
-    letter-spacing:12px;
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.9rem;
+  font-size:.5rem;letter-spacing:.55em;text-transform:uppercase;
+  color:var(--or-clair);margin-bottom:1.5rem;font-weight:400;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:28px;height:1px;background:var(--or)}
+
+.hero-h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(4.5rem,8.5vw,8rem);line-height:.87;
+  color:var(--blanc);margin-bottom:1.2rem;letter-spacing:-.01em;
+}
+.hero-h1 em{
+  font-style:italic;display:block;
+  background:linear-gradient(90deg,var(--or-pale),var(--or-clair));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
 
-.hero p{
-    max-width:400px;
-    opacity:0.7;
-    margin-top:10px;
+.hero-desc{
+  font-size:.88rem;color:rgba(255,255,255,.45);
+  margin-bottom:2.8rem;max-width:420px;line-height:1.85;
+  font-weight:300;letter-spacing:.02em;
 }
-
-.btn{
-    margin-top:20px;
-    padding:12px 30px;
-    border:1px solid #C6A96B;
-    color:#C6A96B;
-    cursor:pointer;
-    transition:0.3s;
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.btn-or{
+  font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;font-weight:500;
+  padding:.9rem 2.5rem;background:var(--or);color:var(--noir);
+  transition:background .3s,transform .3s;display:inline-block;
 }
-
-.btn:hover{
-    background:#C6A96B;
-    color:black;
+.btn-or:hover{background:var(--or-clair);transform:translateY(-2px)}
+.btn-or:focus-visible{outline:2px solid var(--or-clair);outline-offset:3px}
+.btn-ghost{
+  font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;font-weight:300;
+  padding:.9rem 2.5rem;border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.7);
+  transition:all .3s;display:inline-block;
 }
+.btn-ghost:hover{border-color:var(--or-clair);color:var(--or-clair);transform:translateY(-2px)}
 
-/* PRODUITS */
-.products{
-    padding:100px 40px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:40px;
+/* Stats col */
+.hero-stats{
+  display:flex;flex-direction:column;gap:0;
+  animation:fadeUp 1.2s .5s both;
 }
-
-.product{
-    background:#111;
-    padding:20px;
-    border-radius:10px;
-    text-align:center;
-    transition:0.3s;
+.hstat{text-align:right;padding:2rem 0}
+.hstat+.hstat{border-top:1px solid rgba(255,255,255,.1)}
+.hstat-n{
+  font-family:var(--serif);font-size:3.2rem;font-weight:300;
+  color:rgba(255,255,255,.9);line-height:1;
 }
+.hstat-l{font-size:.46rem;letter-spacing:.38em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:.35rem}
 
-.product:hover{
-    transform:translateY(-5px);
+/* Scroll indicator */
+.hero-scroll{
+  position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+  animation:bob 2.5s ease-in-out infinite;
+  cursor:pointer;
 }
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.hero-scroll-label{font-size:.44rem;letter-spacing:.55em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.hero-scroll-track{width:1px;height:52px;background:linear-gradient(to bottom,var(--or),transparent)}
 
-.product img{
-    width:100%;
-    border-radius:10px;
+/* ══════════════════════════════════════
+   TICKER RUBAN
+══════════════════════════════════════ */
+.ruban{
+  background:var(--brun-nuit);
+  padding:.85rem 0;overflow:hidden;
+  border-top:1px solid rgba(184,150,90,.2);
+  border-bottom:1px solid rgba(184,150,90,.2);
 }
+.ruban-track{display:inline-flex;gap:2.5rem;white-space:nowrap;animation:ticker 36s linear infinite}
+.ruban-track:hover{animation-play-state:paused}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ri{font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.35);flex-shrink:0}
+.rd{color:var(--or);font-size:.65rem;flex-shrink:0;opacity:.6}
 
-.product h3{
-    margin:15px 0;
-    font-family:'Playfair Display';
+/* ══════════════════════════════════════
+   SECTION HELPERS
+══════════════════════════════════════ */
+.lbl{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-size:.48rem;letter-spacing:.6em;text-transform:uppercase;
+  color:var(--or);font-weight:500;margin-bottom:.9rem;
 }
-
-.price{
-    color:#C6A96B;
+.lbl::before{content:'';display:block;width:20px;height:1px;background:var(--or)}
+.h2{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.4rem,5vw,4rem);line-height:1.02;
+  color:var(--brun-nuit);margin-bottom:1.4rem;
 }
+.h2 em{font-style:italic;color:var(--or)}
+.filet{width:40px;height:1px;background:var(--or);margin-bottom:2rem}
+.corps{font-size:.9rem;line-height:1.95;color:var(--gris-chd);font-weight:300}
 
-/* PANIER */
-.cart{
-    position:fixed;
-    right:20px;
-    top:20px;
-    background:#C6A96B;
-    color:black;
-    padding:10px 15px;
-    border-radius:30px;
-    cursor:pointer;
+/* Reveal animations */
+.r{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.r.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ══════════════════════════════════════
+   HISTOIRE
+══════════════════════════════════════ */
+.histoire{background:var(--blanc);display:grid;grid-template-columns:55% 1fr}
+.hist-photo{
+  position:relative;overflow:hidden;
 }
-
-.cart-box{
-    position:fixed;
-    right:-400px;
-    top:0;
-    width:320px;
-    height:100%;
-    background:white;
-    color:black;
-    padding:20px;
-    transition:0.3s;
+.hist-photo img{width:100%;height:100%;object-fit:cover;min-height:700px;transition:transform 1.2s var(--ease)}
+.hist-photo:hover img{transform:scale(1.04)}
+.hist-annee{
+  position:absolute;bottom:3rem;left:3rem;
+  font-family:var(--serif);font-size:10rem;font-weight:300;
+  color:rgba(255,255,255,.1);line-height:1;pointer-events:none;user-select:none;
+  letter-spacing:-.02em;
 }
-
-.cart-box.active{right:0;}
-
-.cart-box h2{
-    margin-bottom:20px;
+.hist-photo-badge{
+  position:absolute;top:3rem;right:3rem;
+  background:rgba(15,14,12,.7);backdrop-filter:blur(12px);
+  border:1px solid rgba(184,150,90,.3);
+  padding:1.2rem 1.6rem;
 }
+.hist-photo-badge-titre{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--blanc);line-height:1}
+.hist-photo-badge-sub{font-size:.46rem;letter-spacing:.35em;text-transform:uppercase;color:var(--or);margin-top:.3rem}
 
-.cart-box ul{
-    list-style:none;
-    margin-bottom:20px;
+.hist-texte{
+  padding:7rem 5.5rem;
+  display:flex;flex-direction:column;justify-content:center;
+  background:var(--ivoire);
 }
+.hist-chiffres{
+  display:grid;grid-template-columns:1fr 1fr;
+  margin-top:3rem;border-top:1px solid var(--gris);
+}
+.chiffre{
+  padding:1.8rem 0;
+  border-right:1px solid var(--gris);
+}
+.chiffre:nth-child(even){border-right:none;padding-left:2rem}
+.chiffre:nth-child(odd){padding-right:2rem}
+.chiffre+.chiffre{border-top:none}
+.chiffre:nth-child(n+3){border-top:1px solid var(--gris)}
+.chiffre-n{font-family:var(--serif);font-size:2.6rem;font-weight:300;color:var(--or);line-height:1}
+.chiffre-l{font-size:.48rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gris-mid);margin-top:.35rem}
 
-/* FOOTER */
+/* ══════════════════════════════════════
+   SERVICES BAR
+══════════════════════════════════════ */
+.services{
+  background:var(--blanc);
+  display:grid;grid-template-columns:repeat(5,1fr);
+  border-top:1px solid var(--gris);border-bottom:1px solid var(--gris);
+}
+.svc{
+  padding:2.8rem 2rem;text-align:center;
+  border-right:1px solid var(--gris);
+  transition:background .3s var(--ease);
+  position:relative;overflow:hidden;
+}
+.svc:last-child{border-right:none}
+.svc::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:2px;background:var(--or);transform:scaleX(0);
+  transition:transform .35s var(--ease);
+}
+.svc:hover::before{transform:scaleX(1)}
+.svc:hover{background:var(--or-bg)}
+.svc-ico{font-size:1.3rem;margin-bottom:.9rem;display:block;opacity:.55;transition:opacity .3s}
+.svc:hover .svc-ico{opacity:.9}
+.svc-nom{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--brun-nuit);margin-bottom:.3rem}
+.svc-desc{font-size:.58rem;letter-spacing:.1em;color:var(--gris-mid);line-height:1.55}
+
+/* ══════════════════════════════════════
+   CHAMBRES
+══════════════════════════════════════ */
+.chambres{background:var(--gris-pale);padding:9rem 5rem;text-align:center}
+.ch-intro{max-width:580px;margin:0 auto 5rem}
+.ch-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:3px;margin-bottom:4rem;
+}
+.ch-card{
+  position:relative;overflow:hidden;
+  aspect-ratio:3/4;cursor:pointer;
+}
+.ch-card img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.ch-card:hover img,.ch-card:focus-within img{transform:scale(1.08)}
+.ch-voile{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(15,14,12,.9) 0%,rgba(15,14,12,.1) 50%,transparent 80%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:2.5rem 2rem;text-align:left;
+  transition:background .5s var(--ease);
+}
+.ch-card:hover .ch-voile{
+  background:linear-gradient(to top,rgba(15,14,12,.95) 0%,rgba(15,14,12,.35) 100%);
+}
+.ch-cat{
+  font-size:.45rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--or);margin-bottom:.6rem;font-weight:500;
+}
+.ch-nom{font-family:var(--serif);font-size:1.75rem;font-weight:300;color:var(--blanc);line-height:1}
+.ch-detail{
+  font-size:.68rem;color:rgba(255,255,255,.5);margin-top:.7rem;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .4s var(--ease),transform .4s var(--ease);
+}
+.ch-card:hover .ch-detail,.ch-card:focus-within .ch-detail{opacity:1;transform:none}
+.ch-lien{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--or);
+  margin-top:1rem;opacity:0;transition:opacity .4s .05s var(--ease);
+}
+.ch-lien::after{content:'→';font-family:serif;font-size:.9rem}
+.ch-card:hover .ch-lien,.ch-card:focus-within .ch-lien{opacity:1}
+.ch-btns{display:flex;gap:1rem;justify-content:center}
+
+/* Buttons */
+.btn-sombre{
+  font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;font-weight:500;
+  padding:.9rem 2.5rem;background:var(--brun-nuit);color:var(--blanc);
+  transition:background .25s,transform .25s;display:inline-block;
+}
+.btn-sombre:hover{background:var(--noir);transform:translateY(-2px)}
+.btn-contour{
+  font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;font-weight:400;
+  padding:.9rem 2.5rem;border:1px solid var(--gris-mid);color:var(--gris-chd);
+  transition:all .25s;display:inline-block;
+}
+.btn-contour:hover{border-color:var(--or);color:var(--or);transform:translateY(-2px)}
+
+/* ══════════════════════════════════════
+   RESTAURANT
+══════════════════════════════════════ */
+.resto{display:grid;grid-template-columns:1fr 1fr;background:var(--blanc)}
+.resto-texte{
+  padding:8rem 6rem;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.resto-chef{
+  display:flex;align-items:center;gap:1.3rem;
+  margin:2rem 0;padding:1.8rem 0;
+  border-top:1px solid var(--gris);border-bottom:1px solid var(--gris);
+}
+.chef-init{
+  width:56px;height:56px;border-radius:50%;flex-shrink:0;
+  border:1px solid var(--or-pale);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:1.15rem;color:var(--or);
+  background:var(--or-bg);
+}
+.chef-info small{font-size:.46rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gris-mid)}
+.chef-info b{display:block;font-family:var(--serif);font-size:1.25rem;font-weight:300;color:var(--brun-nuit);margin-top:.1rem}
+.resto-citation{
+  font-family:var(--serif);font-style:italic;
+  font-size:1.1rem;line-height:1.8;color:var(--gris-chd);
+  margin-bottom:1.8rem;padding-left:1.4rem;
+  border-left:2px solid var(--or-pale);
+}
+.saisons{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.saison{
+  font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;
+  padding:.38rem 1rem;border:1px solid var(--gris);color:var(--gris-chd);
+  transition:all .2s;cursor:default;
+}
+.saison:hover{border-color:var(--or);color:var(--or);background:var(--or-bg)}
+
+.resto-photo{position:relative;overflow:hidden;min-height:700px}
+.resto-photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.resto-photo:hover img{transform:scale(1.04)}
+.resto-badge{
+  position:absolute;bottom:3rem;right:3rem;
+  background:rgba(253,251,247,.95);border:1px solid var(--or-pale);
+  padding:1.4rem 1.8rem;backdrop-filter:blur(12px);
+}
+.rb-titre{font-family:var(--serif);font-style:italic;font-size:1.55rem;color:var(--brun-nuit);line-height:1}
+.rb-sub{font-size:.46rem;letter-spacing:.3em;text-transform:uppercase;color:var(--or);margin-top:.35rem}
+
+/* ══════════════════════════════════════
+   GALERIE — Nouvelle mise en page éditée
+══════════════════════════════════════ */
+.galerie{background:var(--brun-nuit);padding:8rem 5rem}
+.gal-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:4rem;
+}
+.gal-header .h2{color:var(--blanc);margin-bottom:0}
+.gal-header .h2 em{color:var(--or-pale)}
+.gal-header .lbl{color:var(--or)}
+.gal-lien{
+  font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);
+  border-bottom:1px solid rgba(184,150,90,.4);padding-bottom:.3rem;
+  transition:color .25s,border-color .25s;
+  white-space:nowrap;align-self:flex-end;margin-bottom:.15rem;
+}
+.gal-lien:hover{color:var(--or);border-color:var(--or)}
+.gal-grille{
+  display:grid;
+  grid-template-columns:1.8fr 1fr 1fr;
+  grid-template-rows:280px 280px;
+  gap:4px;
+}
+.gi{overflow:hidden;position:relative}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);filter:brightness(.9)}
+.gi:hover img{transform:scale(1.07);filter:brightness(1)}
+.gi-tall{grid-row:span 2}
+.gi-cap{
+  position:absolute;inset:0;
+  background:rgba(15,14,12,0);
+  display:flex;align-items:flex-end;
+  padding:1.5rem;
+  transition:background .4s;
+}
+.gi-cap-txt{
+  font-size:.52rem;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,0);transition:color .4s;
+}
+.gi:hover .gi-cap{background:rgba(15,14,12,.25)}
+.gi:hover .gi-cap-txt{color:rgba(255,255,255,.8)}
+
+/* ══════════════════════════════════════
+   SPA
+══════════════════════════════════════ */
+.spa{display:grid;grid-template-columns:1fr 1fr;background:var(--ivoire)}
+.spa-visuel{
+  position:relative;overflow:hidden;
+  background:var(--gris-pale);
+  display:flex;align-items:center;justify-content:center;
+  padding:4rem;min-height:640px;
+}
+/* Decorative frame offset */
+.spa-frame-wrap{
+  position:relative;width:100%;max-width:460px;z-index:1;
+}
+.spa-frame-wrap::before{
+  content:'';position:absolute;bottom:-24px;right:-24px;
+  width:100%;height:100%;
+  border:1px solid var(--or-pale);
+  z-index:0;
+  transition:transform 1s var(--ease);
+}
+.spa-visuel:hover .spa-frame-wrap::before{transform:translate(-5px,-5px)}
+.spa-frame{
+  position:relative;z-index:1;
+  aspect-ratio:3/4;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.08);
+}
+.spa-frame img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform 1.2s var(--ease)}
+.spa-visuel:hover .spa-frame img{transform:scale(1.04)}
+
+.spa-texte{padding:7rem 5.5rem;display:flex;flex-direction:column;justify-content:center}
+.spa-svcs{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;margin-top:2.5rem;
+  background:var(--gris);border:1px solid var(--gris);
+}
+.ssvc{
+  padding:1.4rem 1.6rem;background:var(--ivoire);
+  transition:background .3s;
+}
+.ssvc:hover{background:var(--or-bg)}
+.ssvc-nom{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--brun-nuit);margin-bottom:.3rem}
+.ssvc-desc{font-size:.6rem;color:var(--gris-mid);line-height:1.55}
+
+/* ══════════════════════════════════════
+   RÉGION
+══════════════════════════════════════ */
+.region{background:var(--blanc);padding:9rem 5rem}
+.region-header{text-align:center;margin-bottom:5rem}
+.region-grille{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--gris);
+}
+.rc{background:var(--blanc);overflow:hidden}
+.rc-img{overflow:hidden;position:relative}
+.rc-img img{
+  width:100%;aspect-ratio:4/3;object-fit:cover;display:block;
+  transition:transform 1s var(--ease);filter:brightness(.95);
+}
+.rc:hover .rc-img img{transform:scale(1.06);filter:brightness(1)}
+.rc-corps{padding:2rem 2.2rem 2.5rem}
+.rc-titre{
+  font-family:var(--serif);font-style:italic;
+  font-size:1.3rem;font-weight:300;color:var(--brun-nuit);margin-bottom:.7rem;
+}
+.rc-txt{font-size:.78rem;color:var(--gris-chd);line-height:1.8}
+
+/* ══════════════════════════════════════
+   AVIS
+══════════════════════════════════════ */
+.avis{background:var(--or-bg);padding:9rem 5rem;text-align:center}
+.avis-score-wrap{margin-bottom:5rem}
+.avis-score-n{font-family:var(--serif);font-size:7rem;font-weight:300;color:var(--or);line-height:1}
+.avis-etoiles{color:var(--or);font-size:.8rem;letter-spacing:.2em;margin:.5rem 0}
+.avis-nb{font-size:.5rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gris-mid)}
+.avis-grille{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--or-pale);
+  margin-bottom:3.5rem;
+}
+.ac{
+  background:var(--ivoire);padding:3rem;text-align:left;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.ac::before{
+  content:'"';
+  font-family:var(--serif);font-size:8rem;font-weight:300;
+  color:var(--or-pale);line-height:.8;
+  position:absolute;top:1rem;right:1.5rem;
+  pointer-events:none;user-select:none;
+}
+.ac:hover{background:var(--blanc)}
+.ac-etoiles{color:var(--or);font-size:.62rem;letter-spacing:.12em;margin-bottom:1.5rem}
+.ac-txt{
+  font-family:var(--serif);font-style:italic;
+  font-size:1.02rem;line-height:1.85;color:var(--gris-chd);
+  margin-bottom:1.8rem;
+}
+.ac-auteur{font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;color:var(--or)}
+.ac-src{font-size:.52rem;color:var(--gris-mid);margin-top:.25rem}
+
+.avis-lien{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;
+  border-bottom:1px solid var(--or);color:var(--or);padding-bottom:.3rem;
+  transition:gap .25s,color .2s;
+}
+.avis-lien::after{content:'→';font-family:serif;font-size:.9rem}
+.avis-lien:hover{gap:1.2rem;color:var(--or-clair)}
+
+/* ══════════════════════════════════════
+   SÉMINAIRES
+══════════════════════════════════════ */
+.seminaires{
+  background:var(--brun-nuit);padding:9rem 5rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center;
+}
+.sem-mosaique{
+  display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:280px 180px;gap:3px;
+}
+.sm-img{overflow:hidden}
+.sm-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);filter:brightness(.85)}
+.sm-img:hover img{transform:scale(1.06);filter:brightness(.95)}
+.sm-grande{grid-column:1/-1}
+
+.seminaires .lbl{color:rgba(184,150,90,.8)}
+.seminaires .h2{color:var(--blanc)}
+.seminaires .h2 em{color:var(--or-pale)}
+.seminaires .filet{background:rgba(184,150,90,.4)}
+.seminaires .corps{color:rgba(255,255,255,.4)}
+
+.sem-liste{
+  display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:2.5rem;
+}
+.sem-item{
+  display:flex;align-items:flex-start;gap:.8rem;
+  padding:.8rem 1rem;
+  border:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.03);
+  transition:background .25s,border-color .25s;
+}
+.sem-item:hover{background:rgba(184,150,90,.06);border-color:rgba(184,150,90,.2)}
+.sem-dot{width:4px;height:4px;border-radius:50%;background:var(--or);flex-shrink:0;margin-top:.58rem}
+.sem-txt{font-size:.74rem;color:rgba(255,255,255,.45);line-height:1.55}
+
+/* ══════════════════════════════════════
+   CONTACT BAR
+══════════════════════════════════════ */
+.contact{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--gris);
+  background:var(--blanc);
+}
+.cb{
+  padding:3.5rem 3rem;
+  border-right:1px solid var(--gris);
+  transition:background .3s;
+}
+.cb:last-child{border-right:none}
+.cb:hover{background:var(--or-bg)}
+.cb-ico{font-size:1.2rem;margin-bottom:1.1rem;opacity:.4}
+.cb-lbl{font-size:.46rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gris-mid);margin-bottom:.7rem}
+.cb-val{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--brun-nuit);line-height:1.6}
+.cb-val a{color:var(--or);transition:color .2s}
+.cb-val a:hover{color:var(--or-clair)}
+
+/* ══════════════════════════════════════
+   MAP SECTION
+══════════════════════════════════════ */
+.carte{position:relative;height:420px;overflow:hidden}
+.carte img{width:100%;height:100%;object-fit:cover;filter:saturate(.35) brightness(.6);transition:filter .6s}
+.carte:hover img{filter:saturate(.55) brightness(.7)}
+.carte-voile{
+  position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(30,27,22,.9) 0%,rgba(30,27,22,.5) 40%,transparent 70%);
+}
+.carte-infos{position:absolute;top:50%;left:5rem;transform:translateY(-50%)}
+.carte-titre{font-family:var(--serif);font-style:italic;font-size:2rem;font-weight:300;color:var(--blanc);margin-bottom:.9rem}
+.carte-adresse{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.9;margin-bottom:1.8rem}
+.btn-sombre-outline{
+  font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;font-weight:400;
+  padding:.85rem 2.2rem;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);
+  display:inline-block;transition:all .3s;
+}
+.btn-sombre-outline:hover{border-color:var(--or);color:var(--or);transform:translateY(-2px)}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
 footer{
-    text-align:center;
-    padding:50px;
-    font-size:14px;
-    opacity:0.6;
+  background:var(--noir);color:var(--blanc);
+  padding:6rem 5rem 3.5rem;
+  display:grid;grid-template-columns:2.2fr 1fr 1fr 1.4fr;gap:3.5rem;
+}
+.fb-logo{margin-bottom:1.8rem}
+.fb-logo img{
+  height:44px;width:auto;
+  filter:brightness(0) invert(1) opacity(.7);
+}
+/* Fallback text si image absente */
+.fb-brand-name{font-family:var(--serif);font-size:1.2rem;color:var(--or-clair);display:block;margin-bottom:.3rem}
+.fb-brand-sub{font-size:.46rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gris-mid);display:block;margin-bottom:1.5rem}
+.fb-desc{font-size:.76rem;color:rgba(255,255,255,.28);line-height:1.85;margin-bottom:1.8rem}
+.fb-soc{display:flex;gap:.6rem}
+.fb-soc a{
+  width:38px;height:38px;
+  border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.3);font-size:.65rem;font-weight:600;
+  transition:all .25s;
+}
+.fb-soc a:hover{border-color:var(--or);color:var(--or)}
+.fc h4{font-size:.48rem;letter-spacing:.5em;text-transform:uppercase;color:var(--or);margin-bottom:1.6rem;opacity:.8}
+.fc ul{list-style:none}
+.fc li{margin-bottom:.7rem}
+.fc a{font-size:.76rem;color:rgba(255,255,255,.3);transition:color .2s}
+.fc a:hover{color:rgba(255,255,255,.75)}
+.certifs{display:flex;flex-direction:column;gap:.8rem}
+.certif{
+  border:1px solid rgba(255,255,255,.07);padding:.9rem 1.1rem;
+  display:flex;align-items:center;gap:.9rem;
+  transition:border-color .25s;
+}
+.certif:hover{border-color:rgba(184,150,90,.2)}
+.certif-ico{font-size:.9rem;opacity:.5;flex-shrink:0}
+.certif-info small{font-size:.44rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.25);display:block}
+.certif-info b{font-size:.72rem;font-weight:300;color:rgba(255,255,255,.55)}
+.pied{
+  grid-column:1/-1;
+  border-top:1px solid rgba(255,255,255,.06);
+  padding-top:2.5rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.pied p{font-size:.56rem;color:rgba(255,255,255,.18)}
+.pied-nav{display:flex;gap:1.8rem;flex-wrap:wrap}
+.pied-nav a{font-size:.54rem;color:rgba(255,255,255,.2);transition:color .2s}
+.pied-nav a:hover{color:rgba(255,255,255,.5)}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:1200px){
+  .nav,.nav.solid{padding:1.2rem 3rem}
+  .hero-content{padding:0 3rem}
+  .hist-texte,.resto-texte,.spa-texte{padding:5.5rem 3.5rem}
+  .chambres,.region,.avis,.galerie,.seminaires{padding:7rem 3rem}
+  footer{grid-template-columns:1fr 1fr;padding:5rem 3rem}
+}
+@media(max-width:900px){
+  .hamburger{display:flex}
+  .nav-center,.btn-nav-reserver{display:none}
+  .histoire,.resto,.spa,.seminaires{grid-template-columns:1fr}
+  .hist-photo,.resto-photo,.spa-visuel{min-height:320px}
+  .hist-texte,.resto-texte,.spa-texte{padding:4rem 2rem}
+  .hero-content{grid-template-columns:1fr;padding:0 2rem}
+  .hero-stats{display:none}
+  .hero-logo img{height:52px}
+  .ch-grid{grid-template-columns:1fr 1fr}
+  .gal-grille{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gi-tall{grid-row:span 1}
+  .region-grille{grid-template-columns:1fr}
+  .avis-grille{grid-template-columns:1fr;gap:1px}
+  .services{grid-template-columns:1fr 1fr}
+  .contact{grid-template-columns:1fr 1fr}
+  .cb:nth-child(2){border-right:none}
+  .sem-mosaique{display:none}
+  .seminaires{grid-template-columns:1fr;padding:5rem 2rem}
+  footer{grid-template-columns:1fr}
+  .galerie{padding:5rem 2rem}
+  .gal-header{flex-direction:column;align-items:flex-start;gap:1rem}
+}
+@media(max-width:600px){
+  .ch-grid{grid-template-columns:1fr}
+  .hist-chiffres{grid-template-columns:1fr 1fr}
+  .hero-h1{font-size:3.8rem}
+  .services{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr}
+  .cb{border-right:none}
+  .avis-score-n{font-size:5rem}
+  .carte-infos{left:2rem}
+  footer{padding:4rem 1.5rem}
+  .nav,.nav.solid{padding:1rem 1.5rem}
+  .hero-content{padding:0 1.5rem}
+  .chambres,.region,.avis{padding:5rem 1.5rem}
 }
 </style>
 </head>
-
 <body>
 
-<!-- PANIER -->
-<div class="cart" onclick="toggleCart()">🛒 <span id="count">0</span></div>
+<a class="skip" href="#main">Aller au contenu principal</a>
 
-<div class="cart-box" id="cartBox">
-<h2>Panier</h2>
-<ul id="items"></ul>
-<p>Total : <span id="total">0</span>€</p>
-<button class="btn" onclick="checkout()">Payer</button>
-</div>
-
-<!-- HEADER -->
+<!-- ════════════════ NAV ════════════════ -->
 <header>
-<div class="logo">NO NAME</div>
-<nav>
-<a href="#">Accueil</a>
-<a href="#shop">Boutique</a>
-<a href="#about">Concept</a>
+<nav class="nav" id="nav" role="navigation" aria-label="Navigation principale">
+  <!-- Logo du site officiel -->
+  <a href="https://www.lemoulindemoissac.com/" aria-label="Le Moulin de Moissac — Accueil">
+    <img class="nav-logo-img"
+      src="https://www.lemoulindemoissac.com/wp-content/uploads/2025/12/Logo-LMDM-horizontal-SureStay-ok-scaled.png"
+      alt="Le Moulin de Moissac — logo officiel"
+      width="220" height="60"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    >
+    <span class="brand-txt" style="display:none">
+      <span class="brand-name">Le Moulin de Moissac</span>
+      <span class="brand-sub">Hôtel · Restaurant · Spa</span>
+    </span>
+  </a>
+
+  <ul class="nav-center">
+    <li><a href="#histoire">L'hôtel</a></li>
+    <li><a href="#chambres">Chambres</a></li>
+    <li><a href="#restaurant">Restaurant</a></li>
+    <li><a href="#spa">Spa</a></li>
+    <li><a href="#seminaires">Séminaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <a class="btn-nav-reserver"
+     href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr"
+     target="_blank" rel="noopener">
+    Réserver
+  </a>
+
+  <button class="hamburger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-<h1>NO NAME</h1>
-<p>Sans nom. Sans compromis. Une expérience florale inoubliable.</p>
-<div class="btn" onclick="scrollToShop()">Découvrir</div>
+<!-- ════════════════ HERO ════════════════ -->
+<main id="main">
+<section class="hero" aria-label="Bienvenue au Moulin de Moissac">
+  <div class="hero-bg" role="img" aria-label="Le Moulin de Moissac vu depuis les rives du Tarn"></div>
+  <div class="hero-voile" aria-hidden="true"></div>
+  <div class="hero-grain" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <!-- Vrai logo du site -->
+      <a class="hero-logo" href="https://www.lemoulindemoissac.com/" tabindex="-1" aria-hidden="true">
+        <img
+          src="https://www.lemoulindemoissac.com/wp-content/uploads/2025/12/Logo-LMDM-horizontal-SureStay-ok-scaled.png"
+          alt=""
+          width="280" height="76"
+        >
+      </a>
+
+      <div class="hero-eyebrow">Moissac · Tarn-et-Garonne</div>
+      <h1 class="hero-h1">
+        Le Moulin
+        <em>de Moissac</em>
+      </h1>
+      <p class="hero-desc">Hôtel historique sur les rives du Tarn depuis 1474 — restaurant gastronomique, spa privatif et art de vivre du Sud-Ouest.</p>
+      <div class="hero-actions">
+        <a class="btn-or"
+           href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr"
+           target="_blank" rel="noopener">
+          Réserver une chambre
+        </a>
+        <a class="btn-ghost" href="#histoire">Découvrir l'histoire</a>
+      </div>
+    </div>
+
+    <div class="hero-stats" aria-hidden="true">
+      <div class="hstat">
+        <div class="hstat-n">1474</div>
+        <div class="hstat-l">Année de fondation</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">36</div>
+        <div class="hstat-l">Chambres &amp; suites</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">★ 4.7</div>
+        <div class="hstat-l">Note voyageurs</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true" onclick="document.getElementById('histoire').scrollIntoView({behavior:'smooth'})">
+    <div class="hero-scroll-track"></div>
+    <span class="hero-scroll-label">Défiler</span>
+  </div>
 </section>
 
-<!-- PRODUITS -->
-<section class="products" id="shop"></section>
+<!-- TICKER -->
+<div class="ruban" aria-hidden="true">
+  <div class="ruban-track">
+    <span class="ri">★★★ SureStay by Best Western</span><span class="rd">◆</span>
+    <span class="ri">36 Chambres &amp; Suites</span><span class="rd">◆</span>
+    <span class="ri">Spa privatisable · Hammam · Jacuzzi</span><span class="rd">◆</span>
+    <span class="ri">Restaurant Le M.1474</span><span class="rd">◆</span>
+    <span class="ri">Label Accueil Vélo</span><span class="rd">◆</span>
+    <span class="ri">+33 (0)5 63 32 88 88</span><span class="rd">◆</span>
+    <span class="ri">Fondé en 1474 · 550 ans d'histoire</span><span class="rd">◆</span>
+    <span class="ri">★★★ SureStay by Best Western</span><span class="rd">◆</span>
+    <span class="ri">36 Chambres &amp; Suites</span><span class="rd">◆</span>
+    <span class="ri">Spa privatisable · Hammam · Jacuzzi</span><span class="rd">◆</span>
+    <span class="ri">Restaurant Le M.1474</span><span class="rd">◆</span>
+    <span class="ri">Label Accueil Vélo</span><span class="rd">◆</span>
+    <span class="ri">+33 (0)5 63 32 88 88</span><span class="rd">◆</span>
+    <span class="ri">Fondé en 1474 · 550 ans d'histoire</span><span class="rd">◆</span>
+  </div>
+</div>
 
-<!-- CONCEPT -->
-<section id="about" style="padding:80px;text-align:center;">
-<h2 style="font-family:'Playfair Display';margin-bottom:20px;">Le concept</h2>
-<p style="max-width:500px;margin:auto;opacity:0.7;">
-Des fleurs comestibles conçues pour sublimer l’apéritif.  
-Une expérience sensorielle rare, entre élégance et mystère.
-</p>
+<!-- ════════════════ HISTOIRE ════════════════ -->
+<section class="histoire" id="histoire" aria-labelledby="tit-hist">
+  <div class="hist-photo r">
+    <div class="hist-annee" aria-hidden="true">1474</div>
+    <img
+      src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/moulin-de-moissac-min.jpg"
+      alt="Le Moulin de Moissac au bord du Tarn, lumière dorée du crépuscule"
+      loading="lazy" width="900" height="700"
+    >
+    <div class="hist-photo-badge" aria-hidden="true">
+      <div class="hist-photo-badge-titre">Sur les rives du Tarn</div>
+      <div class="hist-photo-badge-sub">Moissac · 82 200</div>
+    </div>
+  </div>
+  <div class="hist-texte">
+    <p class="lbl r">Un peu d'histoire</p>
+    <h2 class="h2 r d1" id="tit-hist">Là où tout<br><em>a commencé</em></h2>
+    <div class="filet r d2" aria-hidden="true"></div>
+    <p class="corps r d2">La guerre de Cent Ans vient tout juste de s'achever. Les frères Viguier de Ricard érigent le Moulin de Moissac sur les ruines d'un vieux moulin en bois. Quatre meules animées par la puissance des eaux du Tarn en font rapidement le moulin le plus important de la région.</p>
+    <p class="corps r d3" style="margin-top:1rem">Cinq siècles plus tard, ce lieu d'exception vous accueille dans un écrin de pierre dorée et de verdure, fidèle à l'âme profonde du Sud-Ouest.</p>
+    <a class="btn-contour r d3" href="https://www.lemoulindemoissac.com/accueil/un-peu-dhistoire/" style="margin-top:2.5rem;display:inline-block">Découvrir l'histoire</a>
+    <div class="hist-chiffres" role="list">
+      <div class="chiffre r d1" role="listitem"><div class="chiffre-n">1474</div><div class="chiffre-l">Fondé en</div></div>
+      <div class="chiffre r d2" role="listitem"><div class="chiffre-n">36</div><div class="chiffre-l">Chambres &amp; suites</div></div>
+      <div class="chiffre r d3" role="listitem"><div class="chiffre-n">4.7 ★</div><div class="chiffre-l">Note voyageurs</div></div>
+      <div class="chiffre r d4" role="listitem"><div class="chiffre-n">550+</div><div class="chiffre-l">Ans d'histoire</div></div>
+    </div>
+  </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ════════════════ SERVICES ════════════════ -->
+<div class="services" role="list" aria-label="Services de l'hôtel">
+  <div class="svc r" role="listitem"><span class="svc-ico" aria-hidden="true">🌊</span><div class="svc-nom">Bord du Tarn</div><div class="svc-desc">Vue imprenable sur la rivière</div></div>
+  <div class="svc r d1" role="listitem"><span class="svc-ico" aria-hidden="true">💆</span><div class="svc-nom">Spa privatif</div><div class="svc-desc">Hammam · Jacuzzi · Soins</div></div>
+  <div class="svc r d2" role="listitem"><span class="svc-ico" aria-hidden="true">🍽️</span><div class="svc-nom">Le M.1474</div><div class="svc-desc">Gastronomie de terroir</div></div>
+  <div class="svc r d3" role="listitem"><span class="svc-ico" aria-hidden="true">🚲</span><div class="svc-nom">Accueil Vélo</div><div class="svc-desc">Label France Vélo Tourisme</div></div>
+  <div class="svc r d4" role="listitem"><span class="svc-ico" aria-hidden="true">🅿️</span><div class="svc-nom">Parking gratuit</div><div class="svc-desc">Sécurisé, sur place</div></div>
+</div>
+
+<!-- ════════════════ CHAMBRES ════════════════ -->
+<section class="chambres" id="chambres" aria-labelledby="tit-ch">
+  <div class="ch-intro">
+    <p class="lbl r">Hébergement</p>
+    <h2 class="h2 r d1" id="tit-ch">36 Chambres<br><em>&amp; Suites</em></h2>
+    <div class="filet r d2" style="margin:0 auto 2rem" aria-hidden="true"></div>
+    <p class="corps r d2">Chaque chambre est une invitation à la détente — décoration personnalisée, TV connectée, Wi-Fi gratuit, salle de bain privée avec articles de toilette. Certaines ouvrent sur le Tarn, d'autres sur les jardins verdoyants.</p>
+  </div>
+  <div class="ch-grid">
+    <article class="ch-card r" tabindex="0">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/MoulMoissac-12-1920x1080.jpg"
+           alt="Chambre avec vue sur le Tarn, lumière naturelle chaleureuse"
+           loading="lazy" width="600" height="800">
+      <div class="ch-voile">
+        <div class="ch-cat">Chambre Supérieure</div>
+        <div class="ch-nom">Vue sur le Tarn</div>
+        <div class="ch-detail">Lit king-size · Terrasse · Vue rivière</div>
+        <div class="ch-lien">Voir la chambre</div>
+      </div>
+    </article>
+    <article class="ch-card r d1" tabindex="0">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/MoulMoissac-12-1920x1080.jpg"
+           alt="Suite prestige avec salon séparé et décoration raffinée"
+           loading="lazy" width="600" height="800" style="object-position:30% center">
+      <div class="ch-voile">
+        <div class="ch-cat">Suite</div>
+        <div class="ch-nom">Suite Prestige</div>
+        <div class="ch-detail">Salon séparé · Baignoire · Minibar</div>
+        <div class="ch-lien">Voir la suite</div>
+      </div>
+    </article>
+    <article class="ch-card r d2" tabindex="0">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/MoulMoissac-12-1920x1080.jpg"
+           alt="Chambre côté jardin, calme et verdure"
+           loading="lazy" width="600" height="800" style="object-position:70% center">
+      <div class="ch-voile">
+        <div class="ch-cat">Chambre Confort</div>
+        <div class="ch-nom">Côté Jardin</div>
+        <div class="ch-detail">Vue jardin · Calme absolu</div>
+        <div class="ch-lien">Voir la chambre</div>
+      </div>
+    </article>
+  </div>
+  <div class="ch-btns r">
+    <a class="btn-sombre" href="https://www.lemoulindemoissac.com/chambres-suites/">Voir toutes les chambres</a>
+    <a class="btn-contour" href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr" target="_blank" rel="noopener">Réserver maintenant</a>
+  </div>
+</section>
+
+<!-- ════════════════ RESTAURANT ════════════════ -->
+<section class="resto" id="restaurant" aria-labelledby="tit-rest">
+  <div class="resto-texte r">
+    <p class="lbl">Gastronomie</p>
+    <h2 class="h2 d1" id="tit-rest">Le<em>M.1474</em></h2>
+    <div class="filet d2" aria-hidden="true"></div>
+    <p class="corps d2">Entre vertus du terroir et modernité, le restaurant Le M.1474 célèbre les produits frais, de saison et locaux. La carte évolue au fil des mois et vous invite à un voyage gourmand au cœur du Sud-Ouest.</p>
+    <div class="resto-chef">
+      <div class="chef-init" aria-hidden="true">LM</div>
+      <div class="chef-info">
+        <small>Chef cuisinière</small>
+        <b>Latifa Mourchid</b>
+      </div>
+    </div>
+    <p class="resto-citation">« Ma gastronomie relève du plaisir — mettre en valeur des produits frais, locaux, de saison. Chaque assiette est un voyage. »</p>
+    <div class="saisons" aria-label="Carte de saison">
+      <span class="saison">Printemps</span>
+      <span class="saison">Été</span>
+      <span class="saison">Automne</span>
+      <span class="saison">Hiver</span>
+    </div>
+    <a class="btn-sombre" href="https://www.lemoulindemoissac.com/restaurant-moissac-tarn-et-garonne-le-1474/">Voir la carte &amp; réserver</a>
+  </div>
+  <div class="resto-photo r">
+    <img
+      src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/Restaurant.jpeg"
+      alt="Salle du restaurant Le M.1474, tables dressées avec soin"
+      loading="lazy" width="900" height="700"
+    >
+    <div class="resto-badge" aria-hidden="true">
+      <div class="rb-titre">Le M.1474</div>
+      <div class="rb-sub">Terroir · Saison · Modernité</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ GALERIE ════════════════ -->
+<section class="galerie" id="galerie" aria-labelledby="tit-gal">
+  <div class="gal-header">
+    <div>
+      <p class="lbl r">En images</p>
+      <h2 class="h2 r d1" id="tit-gal">L'âme du<em>Moulin</em></h2>
+    </div>
+    <a class="gal-lien r d2" href="https://www.instagram.com/lemoulindemoissac/" target="_blank" rel="noopener">Voir sur Instagram</a>
+  </div>
+  <div class="gal-grille" role="list">
+    <div class="gi gi-tall r" role="listitem">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/moulin-de-moissac-min.jpg"
+           alt="Façade du Moulin de Moissac sur les rives du Tarn" loading="lazy" width="600" height="800">
+      <div class="gi-cap"><div class="gi-cap-txt">Le Moulin &amp; le Tarn</div></div>
+    </div>
+    <div class="gi r d1" role="listitem">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/MoulMoissac-12-1920x1080.jpg"
+           alt="Chambre du Moulin, ambiance chaleureuse" loading="lazy" width="500" height="375">
+      <div class="gi-cap"><div class="gi-cap-txt">Chambres</div></div>
+    </div>
+    <div class="gi r d2" role="listitem">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/Restaurant.jpeg"
+           alt="Salle du restaurant Le M.1474" loading="lazy" width="500" height="375">
+      <div class="gi-cap"><div class="gi-cap-txt">Restaurant</div></div>
+    </div>
+    <div class="gi r d1" role="listitem">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/MoulMoissac-12-1920x1080.jpg"
+           alt="Détail intérieur de l'hôtel" loading="lazy" width="500" height="375" style="object-position:right center">
+      <div class="gi-cap"><div class="gi-cap-txt">Intérieurs</div></div>
+    </div>
+    <div class="gi r d2" role="listitem">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/moulin-de-moissac-min.jpg"
+           alt="Reflets du moulin dans le Tarn au coucher du soleil" loading="lazy" width="500" height="375" style="object-position:center 65%">
+      <div class="gi-cap"><div class="gi-cap-txt">Lumière dorée</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ SPA ════════════════ -->
+<section class="spa" id="spa" aria-labelledby="tit-spa">
+  <div class="spa-visuel r">
+    <div class="spa-frame-wrap">
+      <div class="spa-frame">
+        <img
+          src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/moulin-de-moissac-min.jpg"
+          alt="Vue apaisante du Moulin, invitation au bien-être"
+          loading="lazy" width="460" height="613"
+        >
+      </div>
+    </div>
+  </div>
+  <div class="spa-texte r">
+    <p class="lbl">Bien-être</p>
+    <h2 class="h2 d1" id="tit-spa">Un havre de<br><em>volupté</em></h2>
+    <div class="filet d2" aria-hidden="true"></div>
+    <p class="corps d2">Le Moulin vous invite à une parenthèse hors du temps. Privatisez notre espace spa pour un moment d'exception — hammam, jacuzzi, soins du corps — dans une atmosphère de pierre et de lumière douce.</p>
+    <div class="spa-svcs" role="list">
+      <div class="ssvc r d1" role="listitem"><div class="ssvc-nom">Hammam</div><div class="ssvc-desc">Vapeur douce, relaxation profonde en privatif</div></div>
+      <div class="ssvc r d2" role="listitem"><div class="ssvc-nom">Jacuzzi</div><div class="ssvc-desc">Balnéothérapie, accès exclusif sur réservation</div></div>
+      <div class="ssvc r d3" role="listitem"><div class="ssvc-nom">Soins corps</div><div class="ssvc-desc">Massages et enveloppements sur demande</div></div>
+      <div class="ssvc r d4" role="listitem"><div class="ssvc-nom">Privatisation</div><div class="ssvc-desc">Espace réservé à votre groupe ou en couple</div></div>
+    </div>
+    <a class="btn-contour d4" href="https://www.lemoulindemoissac.com/accueil/moulin-entre-bien-etre-volupte/" style="margin-top:2.5rem;display:inline-block">Découvrir le spa</a>
+  </div>
+</section>
+
+<!-- ════════════════ RÉGION ════════════════ -->
+<section class="region" id="region" aria-labelledby="tit-reg">
+  <div class="region-header">
+    <p class="lbl r">Aux alentours</p>
+    <h2 class="h2 r d1" id="tit-reg">Moissac<em>&amp; ses trésors</em></h2>
+  </div>
+  <div class="region-grille">
+    <article class="rc r">
+      <div class="rc-img">
+        <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/moulin-de-moissac-min.jpg"
+             alt="Vue sur Moissac et son abbatiale romane"
+             loading="lazy" width="600" height="450" style="object-position:center 75%">
+      </div>
+      <div class="rc-corps">
+        <h3 class="rc-titre">L'Abbatiale Saint-Pierre</h3>
+        <p class="rc-txt">Chef-d'œuvre de l'art roman, le cloître de Moissac est classé au Patrimoine mondial de l'UNESCO — à 10 minutes à pied de l'hôtel.</p>
+      </div>
+    </article>
+    <article class="rc r d1">
+      <div class="rc-img">
+        <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/MoulMoissac-12-1920x1080.jpg"
+             alt="Rives du Tarn, calme et nature préservée"
+             loading="lazy" width="600" height="450" style="object-position:left center">
+      </div>
+      <div class="rc-corps">
+        <h3 class="rc-titre">Les rives du Tarn</h3>
+        <p class="rc-txt">Canoë, randonnée, balades à vélo sur la voie verte — profitez du label Accueil Vélo pour explorer la région en toute liberté.</p>
+      </div>
+    </article>
+    <article class="rc r d2">
+      <div class="rc-img">
+        <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/Restaurant.jpeg"
+             alt="Gastronomie et terroir du Sud-Ouest"
+             loading="lazy" width="600" height="450">
+      </div>
+      <div class="rc-corps">
+        <h3 class="rc-titre">Vignobles &amp; terroir</h3>
+        <p class="rc-txt">Vins de Gaillac, chasselas de Moissac IGP, bastides médiévales — le cœur du Sud-Ouest et ses saveurs à portée de main.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ════════════════ AVIS ════════════════ -->
+<section class="avis" id="avis" aria-labelledby="tit-avis">
+  <p class="lbl r">Témoignages</p>
+  <h2 class="h2 r d1" id="tit-avis" style="margin-bottom:.5rem">Ce qu'ils<em>en disent</em></h2>
+  <div class="avis-score-wrap r d2" aria-label="Note globale 4.7 sur 5, plus de 300 avis">
+    <div class="avis-score-n">4.7</div>
+    <div class="avis-etoiles" aria-hidden="true">★ ★ ★ ★ ★</div>
+    <div class="avis-nb">Plus de 300 avis vérifiés</div>
+  </div>
+  <div class="avis-grille">
+    <article class="ac r">
+      <div class="ac-etoiles" aria-label="5 étoiles">★★★★★</div>
+      <p class="ac-txt">Un pur ravissement pour les yeux, le corps et les papilles. Chambre très agréable avec une vue sublime. Paysage enchanteur. Une escapade magique pour un week-end en amoureux.</p>
+      <div class="ac-auteur">Sophie M.</div>
+      <div class="ac-src">TripAdvisor · Couple</div>
+    </article>
+    <article class="ac r d1">
+      <div class="ac-etoiles" aria-label="5 étoiles">★★★★★</div>
+      <p class="ac-txt">Bel hôtel, belles chambres et belles installations. Personnel très agréable. Nous avions privatisé le Spa et vraiment ça vaut la peine ! Très propre, grand et avec beaucoup de charme. On reviendra !</p>
+      <div class="ac-auteur">Pierre &amp; Julie</div>
+      <div class="ac-src">Booking.com · Famille</div>
+    </article>
+    <article class="ac r d2">
+      <div class="ac-etoiles" aria-label="5 étoiles">★★★★★</div>
+      <p class="ac-txt">Un lieu magnifique. J'y ai passé une nuit pour le travail et y ai ensuite emmené ma compagne tellement j'avais aimé l'endroit. Le spa est très agréable. Vous ne serez pas déçu.</p>
+      <div class="ac-auteur">Thomas R.</div>
+      <div class="ac-src">Google · Voyageur solo</div>
+    </article>
+  </div>
+  <a class="avis-lien r" href="https://www.facebook.com/pg/hotelspalemoulin/reviews/" target="_blank" rel="noopener">
+    Lire tous les témoignages
+  </a>
+</section>
+
+<!-- ════════════════ SÉMINAIRES ════════════════ -->
+<section class="seminaires" id="seminaires" aria-labelledby="tit-sem">
+  <div class="sem-mosaique r">
+    <div class="sm-img sm-grande">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/moulin-de-moissac-min.jpg"
+           alt="Vue panoramique du Moulin, cadre d'exception pour vos événements"
+           loading="lazy" width="900" height="350">
+    </div>
+    <div class="sm-img">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/MoulMoissac-12-1920x1080.jpg"
+           alt="Espaces intérieurs pour séminaires" loading="lazy" width="450" height="300">
+    </div>
+    <div class="sm-img">
+      <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/02/Restaurant.jpeg"
+           alt="Restauration lors d'événements" loading="lazy" width="450" height="300">
+    </div>
+  </div>
+  <div>
+    <p class="lbl r">Événements &amp; séminaires</p>
+    <h2 class="h2 r d1" id="tit-sem">Réunissez vos<br><em>équipes ici</em></h2>
+    <div class="filet r d2" aria-hidden="true"></div>
+    <p class="corps r d2">Le Moulin de Moissac offre un cadre d'exception pour vos séminaires, journées d'étude et team buildings. Salles modulables, restauration sur-mesure, hébergement privatif.</p>
+    <ul class="sem-liste" aria-label="Prestations séminaire">
+      <li class="sem-item r d1"><div class="sem-dot" aria-hidden="true"></div><span class="sem-txt">Salles jusqu'à 80 personnes</span></li>
+      <li class="sem-item r d2"><div class="sem-dot" aria-hidden="true"></div><span class="sem-txt">Équipement audiovisuel complet</span></li>
+      <li class="sem-item r d1"><div class="sem-dot" aria-hidden="true"></div><span class="sem-txt">Hébergement privatif en groupe</span></li>
+      <li class="sem-item r d2"><div class="sem-dot" aria-hidden="true"></div><span class="sem-txt">Restauration sur-mesure</span></li>
+      <li class="sem-item r d3"><div class="sem-dot" aria-hidden="true"></div><span class="sem-txt">Team building sur demande</span></li>
+      <li class="sem-item r d3"><div class="sem-dot" aria-hidden="true"></div><span class="sem-txt">Devis personnalisé en 24h</span></li>
+    </ul>
+    <a class="btn-or r d4" href="https://www.lemoulindemoissac.com/seminaire/" style="margin-top:2.5rem;display:inline-block">Demander un devis</a>
+  </div>
+</section>
+
+<!-- ════════════════ CONTACT ════════════════ -->
+<div class="contact" id="contact" aria-label="Informations pratiques">
+  <div class="cb r">
+    <div class="cb-ico" aria-hidden="true">📍</div>
+    <div class="cb-lbl">Adresse</div>
+    <address class="cb-val" style="font-style:normal">1 Promenade Sancert<br>82 200 Moissac<br>Tarn-et-Garonne</address>
+  </div>
+  <div class="cb r d1">
+    <div class="cb-ico" aria-hidden="true">📞</div>
+    <div class="cb-lbl">Téléphone</div>
+    <div class="cb-val"><a href="tel:0563328888">+33 (0)5 63 32 88 88</a></div>
+  </div>
+  <div class="cb r d2">
+    <div class="cb-ico" aria-hidden="true">✉️</div>
+    <div class="cb-lbl">Email</div>
+    <div class="cb-val"><a href="mailto:hotel@lemoulindemoissac.com">hotel@lemoulindemoissac.com</a></div>
+  </div>
+  <div class="cb r d3">
+    <div class="cb-ico" aria-hidden="true">🕐</div>
+    <div class="cb-lbl">Réception</div>
+    <div class="cb-val">Ouvert 7j/7 · 24h/24<br><small style="font-size:.76rem;color:var(--gris-mid)">Check-in 15h · Check-out 11h</small></div>
+  </div>
+</div>
+
+<!-- ════════════════ CARTE ════════════════ -->
+<div class="carte" aria-label="Localisation">
+  <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/moulin-de-moissac-min.jpg"
+       alt="" aria-hidden="true" loading="lazy" width="1600" height="420">
+  <div class="carte-voile" aria-hidden="true"></div>
+  <div class="carte-infos">
+    <div class="carte-titre">Nous trouver</div>
+    <address class="carte-adresse" style="font-style:normal">
+      1 Promenade Sancert · 82 200 Moissac<br>
+      30 min de Montauban · 1h de Toulouse<br>
+      Parking sécurisé gratuit sur place
+    </address>
+    <a class="btn-sombre-outline" href="https://maps.google.com/?q=Le+Moulin+de+Moissac,+Moissac" target="_blank" rel="noopener">Voir l'itinéraire</a>
+  </div>
+</div>
+
+</main>
+
+<!-- ════════════════ FOOTER ════════════════ -->
 <footer>
-<p>Livraison 5-10 jours • Paiement sécurisé • Support 24/7</p>
-<p>© 2026 NO NAME</p>
+  <div class="fb-marque">
+    <!-- Logo officiel -->
+    <div class="fb-logo">
+      <img
+        src="https://www.lemoulindemoissac.com/wp-content/uploads/2025/12/Logo-LMDM-horizontal-SureStay-ok-scaled.png"
+        alt="Le Moulin de Moissac"
+        width="200" height="54"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.nextElementSibling.nextElementSibling.style.display='block'"
+      >
+      <span class="fb-brand-name" style="display:none">Le Moulin de Moissac</span>
+      <span class="fb-brand-sub" style="display:none">Hôtel · Restaurant · Spa · Séminaires</span>
+    </div>
+    <p class="fb-desc">Un hôtel historique et unique à Moissac, sur les rives du Tarn. Au cœur du Tarn-et-Garonne, membre SureStay by Best Western.</p>
+    <div class="fb-soc" aria-label="Réseaux sociaux">
+      <a href="https://www.facebook.com/lemoulindemoissac/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/lemoulindemoissac/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://www.trivago.fr/moissac-103447/hotel/le-moulin-de-moissac-50377" target="_blank" rel="noopener" aria-label="Trivago" style="font-size:.5rem;letter-spacing:.05em">tv</a>
+    </div>
+  </div>
+  <div class="fc">
+    <h4>L'hôtel</h4>
+    <ul>
+      <li><a href="https://www.lemoulindemoissac.com/accueil/moulin-entre-bien-etre-volupte/">Bien-être &amp; Volupté</a></li>
+      <li><a href="https://www.lemoulindemoissac.com/accueil/un-peu-dhistoire/">Notre histoire</a></li>
+      <li><a href="https://www.lemoulindemoissac.com/accueil/moissac-et-ses-alentours/">Moissac &amp; alentours</a></li>
+      <li><a href="https://www.lemoulindemoissac.com/chambres-suites/">Chambres &amp; Suites</a></li>
+    </ul>
+  </div>
+  <div class="fc">
+    <h4>Expériences</h4>
+    <ul>
+      <li><a href="https://www.lemoulindemoissac.com/restaurant-moissac-tarn-et-garonne-le-1474/">Restaurant Le M.1474</a></li>
+      <li><a href="https://www.lemoulindemoissac.com/seminaire/">Séminaires</a></li>
+      <li><a href="https://www.lemoulindemoissac.com/nos-offres/">Nos offres</a></li>
+      <li><a href="https://www.lemoulindemoissac.com/contact/">Contact</a></li>
+    </ul>
+  </div>
+  <div class="fc">
+    <h4>Certifications</h4>
+    <div class="certifs">
+      <div class="certif">
+        <span class="certif-ico" aria-hidden="true">⭐</span>
+        <div class="certif-info"><small>Membre officiel</small><b>SureStay by Best Western</b></div>
+      </div>
+      <div class="certif">
+        <span class="certif-ico" aria-hidden="true">🚲</span>
+        <div class="certif-info"><small>Label national</small><b>Accueil Vélo</b></div>
+      </div>
+      <div class="certif">
+        <span class="certif-ico" aria-hidden="true">🤝</span>
+        <div class="certif-info"><small>Partenaire</small><b>Andréa OnEstLà</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <p>© 2025 Moulin de Moissac Sud SARL · Tous droits réservés</p>
+    <nav class="pied-nav" aria-label="Liens légaux">
+      <a href="https://www.lemoulindemoissac.com/plan-du-site/">Plan du site</a>
+      <a href="https://www.lemoulindemoissac.com/mentions-legales/">Mentions légales</a>
+      <a href="https://www.lemoulindemoissac.com/politique-de-confidentialite/">Confidentialité</a>
+      <a href="https://www.lemoulindemoissac.com/conditions-generales-de-ventes/">CGV</a>
+      <a href="https://www.lemoulindemoissac.com/en/">English</a>
+    </nav>
+  </div>
 </footer>
 
 <script>
-// 🔥 PRODUITS (modifiable ici)
-const products = [
-    {name:"Rose", price:24, active:true},
-    {name:"Violette", price:26, active:true},
-    {name:"Capucine", price:25, active:true},
-    {name:"Bourrache", price:23, active:true},
-    {name:"Souci (Calendula)", price:22, active:true},
-    {name:"Lavande", price:27, active:true},
-    {name:"Pensée", price:24, active:true},
-    {name:"Fleur de courgette", price:28, active:true}
-];
+(function(){
+  'use strict';
 
-// 🛒 PANIER
-let cart=[];
-let total=0;
+  /* ── Nav scroll ── */
+  var nav = document.getElementById('nav');
+  function onScroll(){
+    nav.classList.toggle('solid', window.scrollY > 80);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
 
-// 📦 AFFICHAGE PRODUITS
-function renderProducts(){
-    const container = document.getElementById("shop");
-    container.innerHTML="";
+  /* ── Reveal on scroll ── */
+  var items = document.querySelectorAll('.r');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('on');
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:.07, rootMargin:'0px 0px -30px 0px'});
+    items.forEach(function(el){ io.observe(el); });
+  } else {
+    items.forEach(function(el){ el.classList.add('on'); });
+  }
 
-    products.forEach(p=>{
-        if(!p.active) return; // 🔥 désactivation
-
-        const div=document.createElement("div");
-        div.className="product";
-
-        div.innerHTML=`
-            <h3>${p.name}</h3>
-            <p class="price">${p.price}€</p>
-            <button onclick="add('${p.name}',${p.price})">Ajouter</button>
-        `;
-
-        container.appendChild(div);
+  /* ── Hero logo fallback (if image doesn't load) ── */
+  var heroLogoImg = document.querySelector('.hero-logo img');
+  if(heroLogoImg){
+    heroLogoImg.addEventListener('error', function(){
+      heroLogoImg.parentElement.style.display = 'none';
     });
-}
+  }
 
-renderProducts();
+  /* ── Mobile hamburger (basic toggle) ── */
+  var ham = document.querySelector('.hamburger');
+  if(ham){
+    ham.addEventListener('click', function(){
+      var expanded = ham.getAttribute('aria-expanded') === 'true';
+      ham.setAttribute('aria-expanded', !expanded);
+    });
+  }
 
-// ➕ AJOUT PANIER
-function add(name,price){
-    cart.push({name,price});
-    total+=price;
+  /* ── Parallax subtle on hero ── */
+  var heroBg = document.querySelector('.hero-bg');
+  if(heroBg && window.matchMedia('(prefers-reduced-motion: no-preference)').matches){
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      if(y < window.innerHeight){
+        heroBg.style.transform = 'translateY(' + (y * 0.25) + 'px) scale(1)';
+      }
+    }, {passive:true});
+  }
 
-    document.getElementById("count").innerText=cart.length;
-
-    let li=document.createElement("li");
-    li.innerText=name+" - "+price+"€";
-    document.getElementById("items").appendChild(li);
-
-    document.getElementById("total").innerText=total;
-}
-
-// 🛒 OUVRIR PANIER
-function toggleCart(){
-    document.getElementById("cartBox").classList.toggle("active");
-}
-
-// 💳 CHECKOUT
-function checkout(){
-    window.location.href="https://buy.stripe.com/test"; // 👉 remplace
-}
+})();
 </script>
-
 </body>
 </html>
