@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chambres & Suites — Le Moulin de Moissac. Classiques, Exécutives, Junior Suites avec vue sur le Tarn. À partir de 78€.">
+<title>Chambres &amp; Suites — Le Moulin de Moissac</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ══ ROOM CARDS ══ */
+.rooms-section{background:var(--blanc);padding:0 0 9rem}
+.room{display:grid;background:var(--blanc)}
+.room:nth-child(odd){grid-template-columns:58% 1fr}
+.room:nth-child(even){grid-template-columns:1fr 58%}
+.room-photos{position:relative;overflow:hidden;min-height:580px}
+.room-photos img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.room-photos:hover img{transform:scale(1.04)}
+.room-badge{position:absolute;bottom:2.5rem;left:2.5rem;background:rgba(15,14,12,.75);backdrop-filter:blur(12px);border:1px solid rgba(184,150,90,.3);padding:1rem 1.4rem}
+.room-badge-prix{font-family:var(--serif);font-size:1.8rem;color:var(--or);line-height:1}
+.room-badge-label{font-size:.44rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.2rem}
+.room-texte{padding:5rem 5rem;display:flex;flex-direction:column;justify-content:center;background:var(--ivoire)}
+.room:nth-child(even) .room-texte{background:var(--blanc)}
+.room-cat{font-size:.46rem;letter-spacing:.55em;text-transform:uppercase;color:var(--or);margin-bottom:.6rem;font-weight:500}
+.room-nom{font-family:var(--serif);font-style:italic;font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--brun-nuit);line-height:1;margin-bottom:1.5rem}
+.room-sep{width:35px;height:1px;background:var(--or);margin-bottom:1.8rem}
+.room-desc{font-size:.88rem;line-height:1.9;color:var(--gris-chd);margin-bottom:2rem}
+.room-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--gris);border:1px solid var(--gris);margin-bottom:2rem}
+.rs{background:var(--blanc);padding:1rem;text-align:center}
+.room:nth-child(odd) .rs{background:var(--blanc)}
+.room:nth-child(even) .rs{background:var(--ivoire)}
+.rs-ico{font-size:.9rem;opacity:.45;margin-bottom:.3rem;display:block}
+.rs-val{font-family:var(--serif);font-size:.95rem;color:var(--brun-nuit);display:block}
+.rs-lbl{font-size:.44rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gris-mid);display:block;margin-top:.1rem}
+.room-features{margin-bottom:2rem}
+.room-features-group{margin-bottom:1.2rem}
+.rf-title{font-size:.46rem;letter-spacing:.45em;text-transform:uppercase;color:var(--or);margin-bottom:.6rem;opacity:.85}
+.rf-list{display:flex;flex-wrap:wrap;gap:.4rem}
+.rf-tag{font-size:.64rem;color:var(--gris-chd);padding:.28rem .8rem;border:1px solid var(--gris);background:transparent}
+.room-actions{display:flex;gap:.8rem;flex-wrap:wrap}
+
+/* ══ PHOTO GRID 2 IMAGES ══ */
+.room-photos-dual{display:grid;grid-template-rows:1fr 1fr;gap:2px;min-height:580px}
+.room-photos-dual img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease);display:block}
+.room-photos-dual div{overflow:hidden}
+.room-photos-dual div:hover img{transform:scale(1.04)}
+
+/* ══ SERVICES & TARIFS ══ */
+.services-tarifs{background:var(--brun-nuit);padding:7rem 5rem}
+.st-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.st-block h3{font-family:var(--serif);font-style:italic;font-size:1.8rem;font-weight:300;color:var(--blanc);margin-bottom:1.5rem}
+.tarif-liste{list-style:none}
+.tarif-item{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.tarif-item:last-child{border-bottom:none}
+.tarif-nom{font-size:.8rem;color:rgba(255,255,255,.5)}
+.tarif-prix{font-family:var(--serif);font-size:1.1rem;color:var(--or)}
+.services-liste{list-style:none}
+.srv-item{display:flex;align-items:flex-start;gap:.8rem;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.srv-item:last-child{border-bottom:none}
+.srv-dot{width:4px;height:4px;border-radius:50%;background:var(--or);flex-shrink:0;margin-top:.55rem}
+.srv-txt{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.55}
+
+/* ══ CTA ══ */
+.cta-chambre{background:var(--or-bg);padding:6rem 5rem;text-align:center}
+.cta-chambre .h2{margin-bottom:1rem}
+.cta-chambre .corps{max-width:500px;margin:0 auto 2.5rem}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .room,.room:nth-child(odd),.room:nth-child(even){grid-template-columns:1fr}
+  .room-photos,.room-photos-dual{min-height:300px}
+  .room-texte{padding:3.5rem 2rem}
+  .services-tarifs{padding:5rem 2rem}
+  .st-grid{grid-template-columns:1fr;gap:3rem}
+  .cta-chambre{padding:5rem 2rem}
+}
+@media(max-width:600px){
+  .room-specs{grid-template-columns:1fr 1fr}
+  .rooms-section{padding:0 0 5rem}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu principal</a>
+
+<div class="mob-overlay" id="mob-overlay"></div>
+<nav class="mob-menu" id="mob-menu" aria-label="Menu mobile">
+  <button class="mob-close" id="mob-close" aria-label="Fermer">✕</button>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="chambres.html">Chambres &amp; Suites</a></li>
+    <li><a href="restaurant.html">Restaurant Le M.1474</a></li>
+    <li><a href="seminaire.html">Séminaires</a></li>
+    <li><a href="offres.html">Nos Offres</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li style="margin-top:1.5rem"><a href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr" target="_blank" style="color:var(--or)">Réserver →</a></li>
+  </ul>
+</nav>
+
+<header>
+<nav class="nav" id="nav" role="navigation" aria-label="Navigation principale">
+  <a href="index.html" aria-label="Le Moulin de Moissac — Accueil">
+    <img class="nav-logo-img" src="https://www.lemoulindemoissac.com/wp-content/uploads/2025/12/Logo-LMDM-horizontal-SureStay-ok-scaled.png" alt="Le Moulin de Moissac" width="220" height="60" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <span class="brand-txt" style="display:none"><span class="brand-name">Le Moulin de Moissac</span><span class="brand-sub">Hôtel · Restaurant · Spa</span></span>
+  </a>
+  <ul class="nav-center">
+    <li><a href="index.html">L'hôtel</a></li>
+    <li><a href="chambres.html" class="active">Chambres</a></li>
+    <li><a href="restaurant.html">Restaurant</a></li>
+    <li><a href="seminaire.html">Séminaires</a></li>
+    <li><a href="offres.html">Nos Offres</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a class="btn-nav-reserver" href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr" target="_blank" rel="noopener">Réserver</a>
+  <button class="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+</header>
+
+<main id="main">
+<!-- PAGE HERO -->
+<section class="page-hero" aria-label="Chambres et Suites">
+  <div class="page-hero-bg" style="background-image:url('https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/classique1-min.jpg')"></div>
+  <div class="page-hero-voile"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-eyebrow">36 hébergements</div>
+    <h1><em>Chambres</em>&amp; Suites</h1>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ruban" aria-hidden="true">
+  <div class="ruban-track">
+    <span class="ri">Classiques à partir de 78€</span><span class="rd">◆</span>
+    <span class="ri">Exécutives à partir de 98€</span><span class="rd">◆</span>
+    <span class="ri">Junior Suites à partir de 118€</span><span class="rd">◆</span>
+    <span class="ri">Vue sur le Tarn</span><span class="rd">◆</span>
+    <span class="ri">Wi-Fi gratuit · Climatisation</span><span class="rd">◆</span>
+    <span class="ri">Check-in 15h · Check-out 11h</span><span class="rd">◆</span>
+    <span class="ri">Classiques à partir de 78€</span><span class="rd">◆</span>
+    <span class="ri">Exécutives à partir de 98€</span><span class="rd">◆</span>
+    <span class="ri">Junior Suites à partir de 118€</span><span class="rd">◆</span>
+    <span class="ri">Vue sur le Tarn</span><span class="rd">◆</span>
+    <span class="ri">Wi-Fi gratuit · Climatisation</span><span class="rd">◆</span>
+    <span class="ri">Check-in 15h · Check-out 11h</span><span class="rd">◆</span>
+  </div>
+</div>
+
+<!-- ROOMS -->
+<section class="rooms-section" aria-label="Nos chambres">
+
+  <!-- CLASSIQUE -->
+  <article class="room r" id="classique" aria-labelledby="room-tit-1">
+    <div class="room-photos-dual">
+      <div><img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/classique1-min.jpg" alt="Chambre Classique vue 1" loading="lazy" width="900" height="600"></div>
+      <div><img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/classique2-min.jpg" alt="Chambre Classique vue 2" loading="lazy" width="900" height="600"></div>
+    </div>
+    <div class="room-texte">
+      <div class="room-badge" style="position:static;background:none;backdrop-filter:none;border:none;padding:0;margin-bottom:1.5rem">
+        <div class="room-cat">Chambre · 20 m²</div>
+      </div>
+      <div class="room-badge" style="position:static;background:transparent;border:none;padding:0;margin-bottom:1.5rem">
+        <div class="room-badge-prix" style="color:var(--or)">À partir de 78€</div>
+        <div class="room-badge-label" style="color:var(--gris-mid)">par nuit</div>
+      </div>
+      <h2 class="room-nom" id="room-tit-1">La Nature</h2>
+      <div class="room-sep"></div>
+      <p class="room-desc">Dans un esprit Haggy, ces chambres de 20 m² ont été pensées pour vous transporter dans un univers naturel. Décoration soignée, matières douces et lumière naturelle pour un repos absolu.</p>
+      <div class="room-specs">
+        <div class="rs"><span class="rs-ico">🛏</span><span class="rs-val">160×180</span><span class="rs-lbl">Lit double</span></div>
+        <div class="rs"><span class="rs-ico">🚿</span><span class="rs-val">Baignoire</span><span class="rs-lbl">Salle de bain</span></div>
+        <div class="rs"><span class="rs-ico">❄️</span><span class="rs-val">Climatisée</span><span class="rs-lbl">Insonorisée</span></div>
+      </div>
+      <div class="room-features">
+        <div class="room-features-group">
+          <div class="rf-title">TV &amp; Connectivité</div>
+          <div class="rf-list"><span class="rf-tag">Wi-Fi gratuit</span><span class="rf-tag">TV écran plat</span><span class="rf-tag">Chaînes FR</span></div>
+        </div>
+        <div class="room-features-group">
+          <div class="rf-title">Équipements</div>
+          <div class="rf-list"><span class="rf-tag">Sèche-cheveux</span><span class="rf-tag">Produits d'accueil</span><span class="rf-tag">Bouilloire thé/café</span></div>
+        </div>
+      </div>
+      <div class="room-actions">
+        <a class="btn-or" href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr" target="_blank" rel="noopener">Réserver</a>
+        <a class="btn-contour" href="contact.html">Nous contacter</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- EXÉCUTIVE -->
+  <article class="room r" id="executive" aria-labelledby="room-tit-2">
+    <div class="room-texte">
+      <div class="room-badge" style="position:static;background:none;backdrop-filter:none;border:none;padding:0;margin-bottom:1.5rem">
+        <div class="room-cat">Chambre · 30 m²</div>
+      </div>
+      <div class="room-badge" style="position:static;background:transparent;border:none;padding:0;margin-bottom:1.5rem">
+        <div class="room-badge-prix" style="color:var(--or)">À partir de 98€</div>
+        <div class="room-badge-label" style="color:var(--gris-mid)">par nuit</div>
+      </div>
+      <h2 class="room-nom" id="room-tit-2">Terre Inconnue</h2>
+      <div class="room-sep"></div>
+      <p class="room-desc">Ces chambres de 30 m² ont été imaginées comme un appel au voyage. Baignoire et toilette séparée, décoration singulière, espace généreux. Un territoire à découvrir au cœur du Moulin.</p>
+      <div class="room-specs">
+        <div class="rs"><span class="rs-ico">🛏</span><span class="rs-val">Double/Italienne</span><span class="rs-lbl">Lit</span></div>
+        <div class="rs"><span class="rs-ico">🚿</span><span class="rs-val">Baignoire</span><span class="rs-lbl">WC séparé</span></div>
+        <div class="rs"><span class="rs-ico">❄️</span><span class="rs-val">Climatisée</span><span class="rs-lbl">Insonorisée</span></div>
+      </div>
+      <div class="room-features">
+        <div class="room-features-group">
+          <div class="rf-title">TV &amp; Connectivité</div>
+          <div class="rf-list"><span class="rf-tag">Wi-Fi gratuit</span><span class="rf-tag">TV écran plat</span><span class="rf-tag">Chaînes FR</span></div>
+        </div>
+        <div class="room-features-group">
+          <div class="rf-title">Équipements</div>
+          <div class="rf-list"><span class="rf-tag">Sèche-cheveux</span><span class="rf-tag">Produits d'accueil</span><span class="rf-tag">Bouilloire thé/café</span></div>
+        </div>
+      </div>
+      <div class="room-actions">
+        <a class="btn-or" href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr" target="_blank" rel="noopener">Réserver</a>
+        <a class="btn-contour" href="contact.html">Nous contacter</a>
+      </div>
+    </div>
+    <div class="room-photos-dual">
+      <div><img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/executive1-min.jpg" alt="Chambre Exécutive vue 1" loading="lazy" width="900" height="600"></div>
+      <div><img src="https://www.lemoulindemoissac.com/wp-content/uploads/2026/01/executive-1ok.jpg" alt="Chambre Exécutive vue 2" loading="lazy" width="900" height="600"></div>
+    </div>
+  </article>
+
+  <!-- JUNIOR SUITE -->
+  <article class="room r" id="junior" aria-labelledby="room-tit-3">
+    <div class="room-photos-dual">
+      <div><img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/junior1-min.jpg" alt="Junior Suite vue 1" loading="lazy" width="900" height="600"></div>
+      <div><img src="https://www.lemoulindemoissac.com/wp-content/uploads/2017/10/junior2-min.jpg" alt="Junior Suite vue 2" loading="lazy" width="900" height="600"></div>
+    </div>
+    <div class="room-texte">
+      <div class="room-badge" style="position:static;background:none;backdrop-filter:none;border:none;padding:0;margin-bottom:1.5rem">
+        <div class="room-cat">Junior Suite · 40 m²</div>
+      </div>
+      <div class="room-badge" style="position:static;background:transparent;border:none;padding:0;margin-bottom:1.5rem">
+        <div class="room-badge-prix" style="color:var(--or)">À partir de 118€</div>
+        <div class="room-badge-label" style="color:var(--gris-mid)">par nuit</div>
+      </div>
+      <h2 class="room-nom" id="room-tit-3">Monsieur &amp; Madame</h2>
+      <div class="room-sep"></div>
+      <p class="room-desc">Ces suites « Monsieur » &amp; « Madame » se font face et ont été réfléchies comme une invitation à l'intimité. Ces suites de 40 m² offrent une double vue sur le Tarn, avec espace salon et possibilité communicante.</p>
+      <div class="room-specs">
+        <div class="rs"><span class="rs-ico">🛏</span><span class="rs-val">King-size</span><span class="rs-lbl">160×180</span></div>
+        <div class="rs"><span class="rs-ico">🛁</span><span class="rs-val">Baignoire d'angle</span><span class="rs-lbl">WC séparé</span></div>
+        <div class="rs"><span class="rs-ico">🌊</span><span class="rs-val">Vue Tarn</span><span class="rs-lbl">Double vue</span></div>
+      </div>
+      <div class="room-features">
+        <div class="room-features-group">
+          <div class="rf-title">Points forts</div>
+          <div class="rf-list"><span class="rf-tag">Espace salon</span><span class="rf-tag">Chambre communicante</span><span class="rf-tag">Vue rivière</span><span class="rf-tag">Machine Lavazza</span></div>
+        </div>
+        <div class="room-features-group">
+          <div class="rf-title">Équipements</div>
+          <div class="rf-list"><span class="rf-tag">Wi-Fi gratuit</span><span class="rf-tag">TV écran plat</span><span class="rf-tag">Sèche-cheveux</span><span class="rf-tag">Produits d'accueil</span></div>
+        </div>
+      </div>
+      <div class="room-actions">
+        <a class="btn-or" href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr" target="_blank" rel="noopener">Réserver</a>
+        <a class="btn-contour" href="contact.html">Nous contacter</a>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<!-- SERVICES & TARIFS -->
+<section class="services-tarifs r" aria-labelledby="tit-tarifs">
+  <div class="st-grid">
+    <div>
+      <p class="lbl" style="color:rgba(184,150,90,.8)">Informations pratiques</p>
+      <h2 class="h2" id="tit-tarifs" style="color:var(--blanc)">Tarifs &amp;<em>services</em></h2>
+      <ul class="tarif-liste">
+        <li class="tarif-item"><span class="tarif-nom">Petit déjeuner buffet (produits locaux)</span><span class="tarif-prix">14€ / pers.</span></li>
+        <li class="tarif-item"><span class="tarif-nom">Lit supplémentaire (+ 12 ans)</span><span class="tarif-prix">35€ / nuit</span></li>
+        <li class="tarif-item"><span class="tarif-nom">Animaux acceptés</span><span class="tarif-prix">10€ / animal</span></li>
+        <li class="tarif-item"><span class="tarif-nom">Parking clos vidéosurveillé</span><span class="tarif-prix">8€ / nuit</span></li>
+        <li class="tarif-item"><span class="tarif-nom">Taxe de séjour</span><span class="tarif-prix">1,73€ / pers./nuit</span></li>
+      </ul>
+    </div>
+    <div>
+      <p class="lbl" style="color:rgba(184,150,90,.8)">Inclus dans toutes les chambres</p>
+      <h3 style="font-family:var(--serif);font-style:italic;font-size:1.8rem;font-weight:300;color:var(--blanc);margin-bottom:1.5rem">Services<em style="color:var(--or-pale)">inclus</em></h3>
+      <ul class="services-liste">
+        <li class="srv-item"><div class="srv-dot"></div><span class="srv-txt">Wi-Fi haut débit gratuit dans toutes les chambres</span></li>
+        <li class="srv-item"><div class="srv-dot"></div><span class="srv-txt">Fer et planche à repasser sur demande</span></li>
+        <li class="srv-item"><div class="srv-dot"></div><span class="srv-txt">Lit bébé gratuit sur demande</span></li>
+        <li class="srv-item"><div class="srv-dot"></div><span class="srv-txt">Chambre PMR disponible sur demande</span></li>
+        <li class="srv-item"><div class="srv-dot"></div><span class="srv-txt">Local vélo sécurisé à disposition</span></li>
+        <li class="srv-item"><div class="srv-dot"></div><span class="srv-txt">Accès restaurant &amp; lounge bar sur place</span></li>
+        <li class="srv-item"><div class="srv-dot"></div><span class="srv-txt">Toutes les chambres sont non-fumeur</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-chambre r" aria-label="Réservation">
+  <p class="lbl" style="justify-content:center">Réservation</p>
+  <h2 class="h2">Prêt à vivre<em>l'expérience ?</em></h2>
+  <p class="corps">Réservez directement sur notre site partenaire Best Western pour les meilleurs tarifs garantis.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+    <a class="btn-or" href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr" target="_blank" rel="noopener">Réserver en ligne</a>
+    <a class="btn-contour" href="tel:0563328888">📞 05 63 32 88 88</a>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fb-marque">
+    <div class="fb-logo"><img src="https://www.lemoulindemoissac.com/wp-content/uploads/2025/12/Logo-LMDM-horizontal-SureStay-ok-scaled.png" alt="Le Moulin de Moissac" width="200" height="54" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="fb-brand-name" style="display:none">Le Moulin de Moissac</span></div>
+    <p class="fb-desc">Un hôtel historique et unique à Moissac, sur les rives du Tarn. Membre SureStay by Best Western.</p>
+    <div class="fb-soc">
+      <a href="https://www.facebook.com/lemoulindemoissac/" target="_blank" rel="noopener" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="https://www.instagram.com/lemoulindemoissac/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+    </div>
+  </div>
+  <div class="fc"><h4>L'hôtel</h4><ul><li><a href="chambres.html">Chambres &amp; Suites</a></li><li><a href="offres.html">Nos offres</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+  <div class="fc"><h4>Expériences</h4><ul><li><a href="restaurant.html">Restaurant Le M.1474</a></li><li><a href="seminaire.html">Séminaires</a></li></ul></div>
+  <div class="fc"><h4>Certifications</h4><div class="certifs"><div class="certif"><span class="certif-ico">⭐</span><div class="certif-info"><small>Membre officiel</small><b>SureStay by Best Western</b></div></div><div class="certif"><span class="certif-ico">🚲</span><div class="certif-info"><small>Label national</small><b>Accueil Vélo</b></div></div></div></div>
+  <div class="pied">
+    <p>© 2025 Moulin de Moissac Sud SARL · Tous droits réservés</p>
+    <nav class="pied-nav"><a href="https://www.lemoulindemoissac.com/mentions-legales/">Mentions légales</a><a href="https://www.lemoulindemoissac.com/politique-de-confidentialite/">Confidentialité</a><a href="https://www.lemoulindemoissac.com/conditions-generales-de-ventes/">CGV</a></nav>
+  </div>
+</footer>
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+/* ══════════════════════════════════════
+   MOULIN DE MOISSAC — SHARED DESIGN SYSTEM
+══════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#B8965A;--or-clair:#C9A96E;--or-pale:#E8D5B0;--or-bg:#F9F4EB;
+  --ivoire:#FDFBF7;--blanc:#FFFFFF;--gris-pale:#F5F3EE;--gris:#E3DED5;
+  --gris-mid:#AFA89A;--gris-chd:#6B6358;--brun-nuit:#1E1B16;--noir:#0F0E0C;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--blanc);color:var(--brun-nuit);font-family:var(--sans);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* SKIP */
+.skip{position:absolute;top:-100%;left:1rem;z-index:9999;padding:.5rem 1.2rem;background:var(--or);color:var(--blanc);font-size:.75rem}
+.skip:focus{top:1rem}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:center;justify-content:space-between;padding:2rem 5rem;transition:padding .5s var(--ease),background .5s var(--ease),box-shadow .5s var(--ease)}
+.nav.solid{background:rgba(253,251,247,.97);backdrop-filter:blur(24px);border-bottom:1px solid rgba(184,150,90,.15);padding:1rem 5rem;box-shadow:0 2px 40px rgba(0,0,0,.04)}
+.nav-logo-img{height:48px;width:auto;filter:brightness(0) invert(1);transition:filter .4s var(--ease)}
+.nav.solid .nav-logo-img{filter:none;height:42px}
+.brand-txt{display:flex;flex-direction:column;gap:.15rem}
+.brand-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:rgba(255,255,255,.92);letter-spacing:.06em;line-height:1;transition:color .4s}
+.brand-sub{font-size:.46rem;letter-spacing:.55em;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .4s}
+.nav.solid .brand-name{color:var(--brun-nuit)}
+.nav.solid .brand-sub{color:var(--gris-chd)}
+.nav-center{display:flex;gap:2.8rem;list-style:none}
+.nav-center a{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:400;transition:color .25s;padding:.3rem 0;position:relative}
+.nav-center a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--or);transform:scaleX(0);transition:transform .35s var(--ease)}
+.nav-center a:hover::after,.nav-center a.active::after{transform:scaleX(1)}
+.nav-center a:hover,.nav-center a.active{color:var(--or-clair)}
+.nav.solid .nav-center a{color:var(--gris-chd)}
+.nav.solid .nav-center a:hover,.nav.solid .nav-center a.active{color:var(--or)}
+.btn-nav-reserver{font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;padding:.65rem 1.7rem;border:1px solid rgba(255,255,255,.35);color:var(--blanc);transition:all .3s var(--ease)}
+.btn-nav-reserver:hover{background:var(--or);border-color:var(--or);color:var(--noir)}
+.nav.solid .btn-nav-reserver{border-color:var(--or);color:var(--or)}
+.nav.solid .btn-nav-reserver:hover{background:var(--or);color:var(--blanc)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem;background:none;border:none}
+.hamburger span{display:block;width:26px;height:1px;background:rgba(255,255,255,.75);transition:all .3s}
+.nav.solid .hamburger span{background:var(--brun-nuit)}
+/* Mobile nav drawer */
+.mob-menu{position:fixed;top:0;right:-100%;width:300px;height:100%;background:var(--ivoire);z-index:700;padding:5rem 2.5rem 2.5rem;transition:right .4s var(--ease);box-shadow:-20px 0 60px rgba(0,0,0,.1)}
+.mob-menu.open{right:0}
+.mob-menu ul{list-style:none}
+.mob-menu li{border-bottom:1px solid var(--gris);padding:.9rem 0}
+.mob-menu a{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gris-chd)}
+.mob-menu a:hover{color:var(--or)}
+.mob-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--gris-chd)}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:699}
+.mob-overlay.open{display:block}
+
+/* ── PAGE HERO (sous-pages) ── */
+.page-hero{position:relative;height:55vh;min-height:420px;display:flex;align-items:flex-end;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;animation:hzoom 18s var(--ease) forwards}
+@keyframes hzoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+.page-hero-voile{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,14,12,.85) 0%,rgba(15,14,12,.3) 60%,rgba(15,14,12,.15) 100%)}
+.page-hero-content{position:relative;padding:0 5rem 4rem;z-index:2}
+.page-hero-eyebrow{display:inline-flex;align-items:center;gap:.9rem;font-size:.5rem;letter-spacing:.55em;text-transform:uppercase;color:var(--or-clair);margin-bottom:1rem;font-weight:400}
+.page-hero-eyebrow::before,.page-hero-eyebrow::after{content:'';display:block;width:28px;height:1px;background:var(--or)}
+.page-hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(3rem,6vw,5.5rem);line-height:.9;color:var(--blanc);letter-spacing:-.01em}
+.page-hero h1 em{font-style:italic;display:block;background:linear-gradient(90deg,var(--or-pale),var(--or-clair));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── RUBAN TICKER ── */
+.ruban{background:var(--brun-nuit);padding:.85rem 0;overflow:hidden;border-top:1px solid rgba(184,150,90,.2);border-bottom:1px solid rgba(184,150,90,.2)}
+.ruban-track{display:inline-flex;gap:2.5rem;white-space:nowrap;animation:ticker 36s linear infinite}
+.ruban-track:hover{animation-play-state:paused}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ri{font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.35);flex-shrink:0}
+.rd{color:var(--or);font-size:.65rem;flex-shrink:0;opacity:.6}
+
+/* ── SECTION HELPERS ── */
+.lbl{display:inline-flex;align-items:center;gap:.7rem;font-size:.48rem;letter-spacing:.6em;text-transform:uppercase;color:var(--or);font-weight:500;margin-bottom:.9rem}
+.lbl::before{content:'';display:block;width:20px;height:1px;background:var(--or)}
+.h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,5vw,4rem);line-height:1.02;color:var(--brun-nuit);margin-bottom:1.4rem}
+.h2 em{font-style:italic;color:var(--or)}
+.filet{width:40px;height:1px;background:var(--or);margin-bottom:2rem}
+.corps{font-size:.9rem;line-height:1.95;color:var(--gris-chd);font-weight:300}
+
+/* Reveal */
+.r{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.r.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ── BOUTONS ── */
+.btn-or{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;font-weight:500;padding:.9rem 2.5rem;background:var(--or);color:var(--noir);transition:background .3s,transform .3s;display:inline-block}
+.btn-or:hover{background:var(--or-clair);transform:translateY(-2px)}
+.btn-sombre{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;font-weight:500;padding:.9rem 2.5rem;background:var(--brun-nuit);color:var(--blanc);transition:background .25s,transform .25s;display:inline-block}
+.btn-sombre:hover{background:var(--noir);transform:translateY(-2px)}
+.btn-contour{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;font-weight:400;padding:.9rem 2.5rem;border:1px solid var(--gris-mid);color:var(--gris-chd);transition:all .25s;display:inline-block}
+.btn-contour:hover{border-color:var(--or);color:var(--or);transform:translateY(-2px)}
+.btn-ghost{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;font-weight:300;padding:.9rem 2.5rem;border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.7);transition:all .3s;display:inline-block}
+.btn-ghost:hover{border-color:var(--or-clair);color:var(--or-clair)}
+
+/* ── FOOTER ── */
+footer{background:var(--noir);color:var(--blanc);padding:6rem 5rem 3.5rem;display:grid;grid-template-columns:2.2fr 1fr 1fr 1.4fr;gap:3.5rem}
+.fb-logo{margin-bottom:1.8rem}
+.fb-logo img{height:44px;width:auto;filter:brightness(0) invert(1) opacity(.7)}
+.fb-brand-name{font-family:var(--serif);font-size:1.2rem;color:var(--or-clair);display:block;margin-bottom:.3rem}
+.fb-brand-sub{font-size:.46rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gris-mid);display:block;margin-bottom:1.5rem}
+.fb-desc{font-size:.76rem;color:rgba(255,255,255,.28);line-height:1.85;margin-bottom:1.8rem}
+.fb-soc{display:flex;gap:.6rem}
+.fb-soc a{width:38px;height:38px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:.65rem;font-weight:600;transition:all .25s}
+.fb-soc a:hover{border-color:var(--or);color:var(--or)}
+.fc h4{font-size:.48rem;letter-spacing:.5em;text-transform:uppercase;color:var(--or);margin-bottom:1.6rem;opacity:.8}
+.fc ul{list-style:none}
+.fc li{margin-bottom:.7rem}
+.fc a{font-size:.76rem;color:rgba(255,255,255,.3);transition:color .2s}
+.fc a:hover{color:rgba(255,255,255,.75)}
+.certifs{display:flex;flex-direction:column;gap:.8rem}
+.certif{border:1px solid rgba(255,255,255,.07);padding:.9rem 1.1rem;display:flex;align-items:center;gap:.9rem;transition:border-color .25s}
+.certif:hover{border-color:rgba(184,150,90,.2)}
+.certif-ico{font-size:.9rem;opacity:.5;flex-shrink:0}
+.certif-info small{font-size:.44rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.25);display:block}
+.certif-info b{font-size:.72rem;font-weight:300;color:rgba(255,255,255,.55)}
+.pied{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.06);padding-top:2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.pied p{font-size:.56rem;color:rgba(255,255,255,.18)}
+.pied-nav{display:flex;gap:1.8rem;flex-wrap:wrap}
+.pied-nav a{font-size:.54rem;color:rgba(255,255,255,.2);transition:color .2s}
+.pied-nav a:hover{color:rgba(255,255,255,.5)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){
+  .nav,.nav.solid{padding:1.2rem 3rem}
+  .page-hero-content{padding:0 3rem 3.5rem}
+  footer{grid-template-columns:1fr 1fr;padding:5rem 3rem}
+}
+@media(max-width:900px){
+  .hamburger{display:flex}
+  .nav-center,.btn-nav-reserver{display:none}
+  .page-hero-content{padding:0 2rem 3rem}
+  footer{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .page-hero h1{font-size:2.8rem}
+  .nav,.nav.solid{padding:1rem 1.5rem}
+  footer{padding:4rem 1.5rem}
+}
+
+/* ── SHARED NAV JS helper ── */

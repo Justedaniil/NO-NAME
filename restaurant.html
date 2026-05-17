@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Restaurant Le M.1474 à Moissac — Cuisine inventive et produits frais 100% faits maison. Ouvert du mardi au samedi.">
+<title>Restaurant Le M.1474 — Le Moulin de Moissac</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ══ INTRO ══ */
+.resto-intro{display:grid;grid-template-columns:1fr 1fr;background:var(--blanc)}
+.ri-texte{padding:8rem 6rem;display:flex;flex-direction:column;justify-content:center}
+.ri-photo{position:relative;overflow:hidden;min-height:640px}
+.ri-photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.ri-photo:hover img{transform:scale(1.04)}
+.resto-badge{position:absolute;bottom:3rem;right:3rem;background:rgba(253,251,247,.95);border:1px solid var(--or-pale);padding:1.4rem 1.8rem;backdrop-filter:blur(12px)}
+.rb-titre{font-family:var(--serif);font-style:italic;font-size:1.55rem;color:var(--brun-nuit);line-height:1}
+.rb-sub{font-size:.46rem;letter-spacing:.3em;text-transform:uppercase;color:var(--or);margin-top:.35rem}
+.chef-block{display:flex;align-items:center;gap:1.3rem;margin:2rem 0;padding:1.8rem 0;border-top:1px solid var(--gris);border-bottom:1px solid var(--gris)}
+.chef-init{width:56px;height:56px;border-radius:50%;flex-shrink:0;border:1px solid var(--or-pale);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.15rem;color:var(--or);background:var(--or-bg)}
+.chef-info small{font-size:.46rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gris-mid)}
+.chef-info b{display:block;font-family:var(--serif);font-size:1.25rem;font-weight:300;color:var(--brun-nuit);margin-top:.1rem}
+.citation{font-family:var(--serif);font-style:italic;font-size:1.1rem;line-height:1.8;color:var(--gris-chd);margin-bottom:1.8rem;padding-left:1.4rem;border-left:2px solid var(--or-pale)}
+.horaires-block{background:var(--brun-nuit);padding:1.5rem 2rem;margin-top:2rem}
+.h-titre{font-size:.46rem;letter-spacing:.5em;text-transform:uppercase;color:var(--or);margin-bottom:.8rem}
+.h-row{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.h-row:last-child{border-bottom:none}
+.h-jour{font-size:.76rem;color:rgba(255,255,255,.45)}
+.h-heure{font-size:.76rem;color:rgba(255,255,255,.7)}
+.h-ferme{color:rgba(255,255,255,.2)}
+
+/* ══ MENU ══ */
+.menu-section{background:var(--gris-pale);padding:9rem 5rem}
+.menu-header{text-align:center;margin-bottom:5rem}
+.menu-tabs{display:flex;justify-content:center;gap:0;margin-bottom:4rem;border:1px solid var(--gris)}
+.tab{font-size:.54rem;letter-spacing:.25em;text-transform:uppercase;padding:.85rem 2.2rem;cursor:pointer;transition:all .25s;background:var(--blanc);color:var(--gris-chd);border-right:1px solid var(--gris)}
+.tab:last-child{border-right:none}
+.tab.active{background:var(--brun-nuit);color:var(--blanc)}
+.tab:hover:not(.active){background:var(--or-bg);color:var(--or)}
+.menu-content{display:none}
+.menu-content.active{display:block}
+.menu-cols{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.menu-cat{margin-bottom:3.5rem}
+.menu-cat-titre{font-size:.48rem;letter-spacing:.6em;text-transform:uppercase;color:var(--or);margin-bottom:2rem;display:flex;align-items:center;gap:.8rem}
+.menu-cat-titre::before,.menu-cat-titre::after{content:'';display:block;flex:1;height:1px;background:var(--or-pale)}
+.plat{display:flex;justify-content:space-between;align-items:baseline;padding:1.2rem 0;border-bottom:1px solid var(--gris)}
+.plat:last-child{border-bottom:none}
+.plat-info{flex:1;padding-right:2rem}
+.plat-nom{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--brun-nuit);line-height:1.3;margin-bottom:.3rem}
+.plat-desc{font-size:.68rem;color:var(--gris-mid);line-height:1.55}
+.plat-prix{font-family:var(--serif);font-size:1.1rem;color:var(--or);white-space:nowrap;flex-shrink:0}
+.vege-badge{display:inline-block;font-size:.42rem;letter-spacing:.2em;padding:.15rem .5rem;border:1px solid #6a9e5e;color:#6a9e5e;margin-left:.5rem;vertical-align:middle}
+
+/* ══ MENU MARCHÉ ══ */
+.marche{background:var(--brun-nuit);padding:8rem 5rem}
+.marche-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-top:4rem}
+.mc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);padding:3rem 2.5rem;transition:background .3s,border-color .3s}
+.mc:hover{background:rgba(184,150,90,.05);border-color:rgba(184,150,90,.2)}
+.mc-cat{font-size:.46rem;letter-spacing:.5em;text-transform:uppercase;color:var(--or);margin-bottom:1.5rem;opacity:.8}
+.mc-items{list-style:none}
+.mc-item{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:rgba(255,255,255,.6);line-height:1.5;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.mc-item:last-child{border-bottom:none}
+.mc-item em{font-style:normal;font-family:var(--sans);font-size:.72rem;color:rgba(255,255,255,.3);display:block;margin-top:.2rem}
+.mc-ou{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--or-clair);opacity:.5;text-align:center;padding:.8rem 0;display:block}
+.marche-prix{text-align:center;margin-top:4rem;padding:3rem;border:1px solid rgba(184,150,90,.2)}
+.mp-titre{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--blanc);margin-bottom:1.5rem}
+.mp-formules{display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
+.mp-f{text-align:center}
+.mp-f-prix{font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--or);line-height:1}
+.mp-f-label{font-size:.48rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:.4rem}
+.mp-note{font-size:.68rem;color:rgba(255,255,255,.25);margin-top:1.5rem}
+
+/* ══ RÉSERVATION ══ */
+.resa{background:var(--or-bg);padding:7rem 5rem;text-align:center}
+.resa .corps{max-width:500px;margin:0 auto 2.5rem}
+.resa-infos{display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;margin-bottom:3rem}
+.ri-bloc{text-align:center}
+.ri-ico{font-size:1.3rem;opacity:.4;margin-bottom:.6rem}
+.ri-lbl{font-size:.46rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gris-mid);margin-bottom:.4rem}
+.ri-val{font-family:var(--serif);font-size:1.1rem;color:var(--brun-nuit)}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .resto-intro{grid-template-columns:1fr}
+  .ri-photo{min-height:320px}
+  .ri-texte{padding:4rem 2rem}
+  .menu-section,.marche,.resa{padding:6rem 2rem}
+  .menu-cols{grid-template-columns:1fr}
+  .marche-grid{grid-template-columns:1fr}
+  .menu-tabs{flex-wrap:wrap}
+  .mp-formules{gap:2rem}
+  .resa-infos{gap:2rem}
+}
+@media(max-width:600px){
+  .menu-section,.marche,.resa{padding:4rem 1.5rem}
+  .tab{padding:.7rem 1.2rem;font-size:.48rem}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu principal</a>
+
+<div class="mob-overlay" id="mob-overlay"></div>
+<nav class="mob-menu" id="mob-menu" aria-label="Menu mobile">
+  <button class="mob-close" id="mob-close" aria-label="Fermer">✕</button>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="chambres.html">Chambres &amp; Suites</a></li>
+    <li><a href="restaurant.html">Restaurant Le M.1474</a></li>
+    <li><a href="seminaire.html">Séminaires</a></li>
+    <li><a href="offres.html">Nos Offres</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li style="margin-top:1.5rem"><a href="https://www.bestwestern.fr/infos_hotel.jsp?HotelCode=87142&lang=fr" target="_blank" style="color:var(--or)">Réserver →</a></li>
+  </ul>
+</nav>
+
+<header>
+<nav class="nav" id="nav" role="navigation" aria-label="Navigation principale">
+  <a href="index.html" aria-label="Le Moulin de Moissac — Accueil">
+    <img class="nav-logo-img" src="https://www.lemoulindemoissac.com/wp-content/uploads/2025/12/Logo-LMDM-horizontal-SureStay-ok-scaled.png" alt="Le Moulin de Moissac" width="220" height="60" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <span class="brand-txt" style="display:none"><span class="brand-name">Le Moulin de Moissac</span><span class="brand-sub">Hôtel · Restaurant · Spa</span></span>
+  </a>
+  <ul class="nav-center">
+    <li><a href="index.html">L'hôtel</a></li>
+    <li><a href="chambres.html">Chambres</a></li>
+    <li><a href="restaurant.html" class="active">Restaurant</a></li>
+    <li><a href="seminaire.html">Séminaires</a></li>
+    <li><a href="offres.html">Nos Offres</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a class="btn-nav-reserver" href="contact.html">Réserver une table</a>
+  <button class="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+</header>
+
+<main id="main">
+<!-- PAGE HERO -->
+<section class="page-hero" aria-label="Restaurant Le M.1474">
+  <div class="page-hero-bg" style="background-image:url('https://www.lemoulindemoissac.com/wp-content/uploads/2024/04/IMG-20240410-WA0002-1-1152x1080.jpg')"></div>
+  <div class="page-hero-voile"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-eyebrow">Gastronomie · Terroir · Modernité</div>
+    <h1>Le<em>M.1474</em></h1>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ruban" aria-hidden="true">
+  <div class="ruban-track">
+    <span class="ri">Mardi–Vendredi midi &amp; soir</span><span class="rd">◆</span>
+    <span class="ri">Samedi soir uniquement</span><span class="rd">◆</span>
+    <span class="ri">Fermé dimanche &amp; lundi</span><span class="rd">◆</span>
+    <span class="ri">100% frais · 100% fait maison</span><span class="rd">◆</span>
+    <span class="ri">Produits locaux de saison</span><span class="rd">◆</span>
+    <span class="ri">Réservation : 05 63 32 88 88</span><span class="rd">◆</span>
+    <span class="ri">Mardi–Vendredi midi &amp; soir</span><span class="rd">◆</span>
+    <span class="ri">Samedi soir uniquement</span><span class="rd">◆</span>
+    <span class="ri">Fermé dimanche &amp; lundi</span><span class="rd">◆</span>
+    <span class="ri">100% frais · 100% fait maison</span><span class="rd">◆</span>
+    <span class="ri">Produits locaux de saison</span><span class="rd">◆</span>
+    <span class="ri">Réservation : 05 63 32 88 88</span><span class="rd">◆</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="resto-intro r" aria-labelledby="tit-resto">
+  <div class="ri-texte">
+    <p class="lbl">Gastronomie</p>
+    <h2 class="h2 d1" id="tit-resto">Une cuisine inventive<em>et pleine de fraîcheur</em></h2>
+    <div class="filet d2"></div>
+    <p class="corps d2">Venez découvrir la nouvelle carte proposée par notre Chef et son équipe. Des grands classiques de la cuisine régionale, élaborés exclusivement avec des produits 100% frais – 100% fait maison. Vous y dégusterez des plats fins, travaillés avec des produits locaux servis avec nos petits pains faits maison.</p>
+    <div class="chef-block">
+      <div class="chef-init" aria-hidden="true">LM</div>
+      <div class="chef-info">
+        <small>Chef cuisinière</small>
+        <b>Latifa Mourchid</b>
+      </div>
+    </div>
+    <p class="citation">« Ma gastronomie relève du plaisir — mettre en valeur des produits frais, locaux, de saison. Chaque assiette est un voyage. »</p>
+    <div class="horaires-block r d3">
+      <div class="h-titre">Horaires d'ouverture</div>
+      <div class="h-row"><span class="h-jour">Mardi – Vendredi</span><span class="h-heure">12h00–14h00 &amp; 19h00–21h00</span></div>
+      <div class="h-row"><span class="h-jour">Samedi</span><span class="h-heure">19h00–21h00 (soir uniquement)</span></div>
+      <div class="h-row"><span class="h-jour">Dimanche &amp; Lundi</span><span class="h-heure h-ferme">Fermé</span></div>
+    </div>
+  </div>
+  <div class="ri-photo r">
+    <img src="https://www.lemoulindemoissac.com/wp-content/uploads/2024/04/IMG-20240410-WA0002-1-1152x1080.jpg" alt="Salle du restaurant Le M.1474" loading="lazy" width="900" height="700">
+    <div class="resto-badge" aria-hidden="true">
+      <div class="rb-titre">Le M.1474</div>
+      <div class="rb-sub">Terroir · Saison · Modernité</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU CARTE -->
+<section class="menu-section" aria-labelledby="tit-menu">
+  <div class="menu-header">
+    <p class="lbl r" style="justify-content:center">Notre cuisine</p>
+    <h2 class="h2 r d1" id="tit-menu">La Carte<em>du Chef</em></h2>
+    <div class="filet r d2" style="margin:0 auto 0"></div>
+  </div>
+  <div class="menu-tabs r" role="tablist">
+    <button class="tab active" role="tab" aria-selected="true" onclick="switchTab('carte')">La Carte</button>
+    <button class="tab" role="tab" aria-selected="false" onclick="switchTab('marche')">Menu du Marché</button>
+    <button class="tab" role="tab" aria-selected="false" onclick="switchTab('fromages')">Fromages &amp; Desserts</button>
+  </div>
+
+  <!-- CARTE -->
+  <div class="menu-content active" id="tab-carte">
+    <div class="menu-cols">
+      <div>
+        <div class="menu-cat">
+          <div class="menu-cat-titre">Entrées</div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Langoustines poêlées</div><div class="plat-desc">Pulpe de patates douces vanillées, condiment de lentilles béluga croustillantes</div></div><div class="plat-prix">21€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Asperges vertes de chez Manu</div><div class="plat-desc">Rôties au beurre noisette, œuf coulant, sauce hollandaise au basilic</div></div><div class="plat-prix">17€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Déclinaison autour de la fève</div><div class="plat-desc">Émietté de crabe au citron vert, toasts grillés à l'ail confit</div></div><div class="plat-prix">14€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Foie gras mi-cuit de la Cheffe</div><div class="plat-desc">Brioche maison et son chutney de saison</div></div><div class="plat-prix">21€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Œuf mollet pané panko</div><div class="plat-desc">Crème carbonara, tuiles au parmesan</div></div><div class="plat-prix">13€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Croustillant de gambas marinées au gingembre</div><div class="plat-desc">Caramel d'ananas finement relevé aux épices</div></div><div class="plat-prix">16€</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="menu-cat">
+          <div class="menu-cat-titre">Plats</div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Entrecôte charolaise poêlée</div><div class="plat-desc">Beurre de cèpes, frites maison — 300g</div></div><div class="plat-prix">35€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Carré d'agneau français en croûte de romarin</div><div class="plat-desc">Légumes de saison, jus corsé</div></div><div class="plat-prix">25€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Pêche du moment</div><div class="plat-desc">Fregola sarda, émulsion marine</div></div><div class="plat-prix">25€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Rognons de veau poêlés</div><div class="plat-desc">Mousseline de patates douces, jus de veau au porto</div></div><div class="plat-prix">17€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Burger de bœuf au gouda</div><div class="plat-desc">Oignons confits au balsamique, sauce tartare et fines herbes</div></div><div class="plat-prix">19€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Lentilles béluga façon risotto <span class="vege-badge">🌱</span></div><div class="plat-desc">Cromesqui de mozzarella, crème de noix de cajou</div></div><div class="plat-prix">18€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Supplément</div><div class="plat-desc">Frites · Salade · Cassolette de légumes</div></div><div class="plat-prix">6€</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARCHÉ (hidden by default) -->
+  <div class="menu-content" id="tab-marche" style="display:none">
+    <p class="corps" style="text-align:center;max-width:580px;margin:0 auto 3rem">Chaque semaine, notre menu évolue en fonction du marché et de l'inspiration du Chef. Produits frais et locaux de saison, disponible du mardi au vendredi.</p>
+    <div class="menu-cols">
+      <div>
+        <div class="menu-cat">
+          <div class="menu-cat-titre">Entrée du moment</div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Comme une tarte aux champignons</div><div class="plat-desc">Pâte brisée au parmesan, vinaigrette miso</div></div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Rillettes de saumon au citron vert</div><div class="plat-desc">Pain polaire, crème basilic acidulée</div></div></div>
+        </div>
+        <div class="menu-cat">
+          <div class="menu-cat-titre">Plat du moment</div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Rouget barbet rôti entier à la sauge</div><div class="plat-desc">Risotto d'orge et petits pois</div></div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Poivrons farcis</div><div class="plat-desc">Jus à l'ail confit</div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="menu-cat">
+          <div class="menu-cat-titre">Dessert du moment</div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Choux, mousseline à la vanille</div></div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Carpaccio d'ananas</div><div class="plat-desc">Sirop à la cardamome, tuile croustillante</div></div></div>
+        </div>
+        <div style="background:var(--blanc);border:1px solid var(--or-pale);padding:2rem;margin-top:2rem">
+          <div class="menu-cat-titre" style="font-size:.46rem;letter-spacing:.6em;text-transform:uppercase;color:var(--or);margin-bottom:1.5rem">Formules</div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Entrée + Plat + Dessert</div></div><div class="plat-prix">25€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Entrée + Plat<br>ou Plat + Dessert</div></div><div class="plat-prix">20€</div></div>
+          <p style="font-size:.64rem;color:var(--gris-mid);margin-top:1rem">Disponibles du mardi au vendredi, hors jours fériés. Tarifs hors boissons, TVA et service inclus.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FROMAGES & DESSERTS (hidden by default) -->
+  <div class="menu-content" id="tab-fromages" style="display:none">
+    <div class="menu-cols">
+      <div>
+        <div class="menu-cat">
+          <div class="menu-cat-titre">Fromages</div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Assiette de 3 fromages</div></div><div class="plat-prix">9€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Assiette de 4 fromages</div></div><div class="plat-prix">11€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Assiette de 5 fromages</div></div><div class="plat-prix">13€</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="menu-cat">
+          <div class="menu-cat-titre">Desserts</div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Coulant au chocolat</div><div class="plat-desc">Caramel au beurre salé, glace vanille</div></div><div class="plat-prix">10€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Shortbread aux fraises de Moissac</div><div class="plat-desc">Ganache chocolat blanc, fleur de géranium bio</div></div><div class="plat-prix">10€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Riz au lait à la vanille bourbon</div><div class="plat-desc">Riz croustillant</div></div><div class="plat-prix">10€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Sabayon de fraises</div><div class="plat-desc">Parfumé à la liqueur de fruits rouges</div></div><div class="plat-prix">11€</div></div>
+          <div class="plat"><div class="plat-info"><div class="plat-nom">Mille-feuilles gavotte amande-pistache</div><div class="plat-desc">Crème pistache</div></div><div class="plat-prix">10€</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center;font-size:.66rem;color:var(--gris-mid);margin-top:2rem">🌱 Plat végétarien · Tous nos tarifs comprennent la TVA et le service · Hors boissons</p>
+</section>
+
+<!-- MENU DU MARCHÉ DARK -->
+<section class="marche r" aria-labelledby="tit-marche">
+  <div style="text-align:center;margin-bottom:4rem">
+    <p class="lbl" style="justify-content:center;color:rgba(184,150,90,.8)">Chaque semaine</p>
+    <h2 class="h2 d1" id="tit-marche" style="color:var(--blanc);text-align:center">Menu du<em style="color:var(--or-pale)">Marché</em></h2>
+    <p style="font-size:.86rem;color:rgba(255,255,255,.35);max-width:480px;margin:0 auto">La carte évolue chaque semaine en fonction des arrivages et de l'inspiration. Produits du terroir, saison, fraîcheur.</p>
+  </div>
+  <div class="marche-prix">
+    <div class="mp-titre">Nos Formules</div>
+    <div class="mp-formules">
+      <div class="mp-f"><div class="mp-f-prix">25€</div><div class="mp-f-label">Entrée + Plat + Dessert</div></div>
+      <div class="mp-f"><div class="mp-f-prix">20€</div><div class="mp-f-label">Entrée + Plat · ou · Plat + Dessert</div></div>
+    </div>
+    <p class="mp-note">Disponibles du mardi au vendredi (midi et soir), hors jours fériés. Tarifs hors boissons, TVA et service inclus.</p>
+  </div>
+</section>
+
+<!-- RÉSERVATION -->
+<section class="resa r" aria-labelledby="tit-resa">
+  <p class="lbl" style="justify-content:center">Réserver une table</p>
+  <h2 class="h2 d1" id="tit-resa">Venez nous<em>rendre visite</em></h2>
+  <div class="resa-infos">
+    <div class="ri-bloc"><div class="ri-ico">📞</div><div class="ri-lbl">Par téléphone</div><div class="ri-val"><a href="tel:0563328888" style="color:var(--or)">05 63 32 88 88</a></div></div>
+    <div class="ri-bloc"><div class="ri-ico">✉️</div><div class="ri-lbl">Par email</div><div class="ri-val"><a href="mailto:hotel@lemoulindemoissac.com" style="color:var(--or)">hotel@lemoulindemoissac.com</a></div></div>
+    <div class="ri-bloc"><div class="ri-ico">🕐</div><div class="ri-lbl">Service</div><div class="ri-val">12h–14h &amp; 19h–21h</div></div>
+  </div>
+  <p class="corps" style="max-width:500px;margin:0 auto 2.5rem">Pour vos demandes de réservations, groupes ou événements privés, n'hésitez pas à nous contacter directement.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+    <a class="btn-or" href="contact.html">Nous contacter</a>
+    <a class="btn-contour" href="tel:0563328888">📞 Appeler maintenant</a>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fb-marque">
+    <div class="fb-logo"><img src="https://www.lemoulindemoissac.com/wp-content/uploads/2025/12/Logo-LMDM-horizontal-SureStay-ok-scaled.png" alt="Le Moulin de Moissac" width="200" height="54" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="fb-brand-name" style="display:none">Le Moulin de Moissac</span></div>
+    <p class="fb-desc">Un hôtel historique et unique à Moissac, sur les rives du Tarn. Membre SureStay by Best Western.</p>
+    <div class="fb-soc">
+      <a href="https://www.facebook.com/lemoulindemoissac/" target="_blank" rel="noopener" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="https://www.instagram.com/lemoulindemoissac/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+    </div>
+  </div>
+  <div class="fc"><h4>L'hôtel</h4><ul><li><a href="chambres.html">Chambres &amp; Suites</a></li><li><a href="offres.html">Nos offres</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+  <div class="fc"><h4>Expériences</h4><ul><li><a href="restaurant.html">Restaurant Le M.1474</a></li><li><a href="seminaire.html">Séminaires</a></li></ul></div>
+  <div class="fc"><h4>Certifications</h4><div class="certifs"><div class="certif"><span class="certif-ico">⭐</span><div class="certif-info"><small>Membre officiel</small><b>SureStay by Best Western</b></div></div><div class="certif"><span class="certif-ico">🚲</span><div class="certif-info"><small>Label national</small><b>Accueil Vélo</b></div></div></div></div>
+  <div class="pied"><p>© 2025 Moulin de Moissac Sud SARL · Tous droits réservés</p><nav class="pied-nav"><a href="https://www.lemoulindemoissac.com/mentions-legales/">Mentions légales</a><a href="https://www.lemoulindemoissac.com/politique-de-confidentialite/">Confidentialité</a><a href="https://www.lemoulindemoissac.com/conditions-generales-de-ventes/">CGV</a></nav></div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach(function(t,i){
+    var ids = ['carte','marche','fromages'];
+    t.classList.toggle('active', ids[i] === id);
+    t.setAttribute('aria-selected', ids[i] === id);
+  });
+  document.querySelectorAll('.menu-content').forEach(function(c){
+    c.style.display = 'none';
+    c.classList.remove('active');
+  });
+  var target = document.getElementById('tab-' + id);
+  if(target){ target.style.display = 'block'; target.classList.add('active'); }
+}
+</script>
+</body>
+</html>
